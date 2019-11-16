@@ -32,7 +32,7 @@ class _ComandasTelaState extends State<ComandasTela> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Listagem de Comandas'),
+          title: Text('Listagem de Comanda'),
           centerTitle: true,
         ),
         body: listagem());
