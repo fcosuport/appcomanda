@@ -4,7 +4,6 @@ import 'package:appcomanda/request/requests.dart';
 import 'package:appcomanda/ui/grupos.dart';
 import 'package:appcomanda/ui/itenscomanda.dart';
 import 'package:flutter/material.dart';
-//import 'package:http/http.dart';
 
 class ComandasTela extends StatefulWidget {
   @override
@@ -32,7 +31,7 @@ class _ComandasTelaState extends State<ComandasTela> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Listagem de Comanda'),
+          title: Text('Listagem de Comandas'),
           centerTitle: true,
         ),
         body: listagem());
@@ -43,8 +42,16 @@ class _ComandasTelaState extends State<ComandasTela> {
         itemCount: listacomandas.length,
         itemBuilder: (context, index) {
           return ListTile(
-            title: Text(listacomandas[index].numero),
-            subtitle: Text(listacomandas[index].descricao),
+            title: Text(
+              listacomandas[index].numero,
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            subtitle: Text(listacomandas[index].descricao +
+                ' ' +
+                listacomandas[index].status),
             trailing: Icon(Icons.arrow_forward_ios),
             leading: CircleAvatar(
               backgroundColor: listacomandas[index].status == 'OCUPADA'
