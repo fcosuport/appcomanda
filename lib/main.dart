@@ -13,18 +13,10 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    String _url;
-
     Future<String> _verificaURLAPI() async {
       final storage = new FlutterSecureStorage();
       return await storage.read(key: 'URLAPI');
     }
-
-    _verificaURLAPI().then((value) {
-      setState(() {
-        _url = value;
-      });
-    });
 
     return MaterialApp(
       title: 'App Comanda Eletrônica',
@@ -32,7 +24,17 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: _url != null ? ComandasTela() : Configuracoes(),
+      home: FutureBuilder(
+        future: _verificaURLAPI(),
+        builder: (context, snapshot) {
+          print(snapshot.data);
+          if (snapshot.data != null) {
+            return ComandasTela();
+          } else {
+            return Configuracoes();
+          }
+        },
+      ),
     );
   }
 }
