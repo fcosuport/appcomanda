@@ -21,7 +21,9 @@ class _MyAppState extends State<MyApp> {
     }
 
     _verificaURLAPI().then((value) {
-      _url = value;
+      setState(() {
+        _url = value;
+      });
     });
 
     return MaterialApp(
