@@ -11,7 +11,7 @@ class ComandasTela extends StatefulWidget {
 }
 
 class _ComandasTelaState extends State<ComandasTela> {
-  var listacomandas = new List<ListaComandas>();
+  List<ListaComandas> listacomandas = new List<ListaComandas>();
 
   _getListaComandas() {
     Requests.getListaComandas().then((response) {
