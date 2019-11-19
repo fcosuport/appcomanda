@@ -21,4 +21,10 @@ class Requests {
     var url = '${await storage.read(key: 'URLAPI')}/eventos/listaprodutos';
     return await http.get(url);
   }
+
+  static Future getItensComanda() async {
+    final storage = new FlutterSecureStorage();
+    var url = '${await storage.read(key: 'URLAPI')}/eventos/itenscomanda';
+    return await http.get(url);
+  }
 }
