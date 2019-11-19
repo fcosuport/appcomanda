@@ -33,6 +33,14 @@ class _ComandasTelaState extends State<ComandasTela> {
         appBar: AppBar(
           title: Text('Listagem de Comandas'),
           centerTitle: true,
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(Icons.settings),
+              onPressed: () {
+                Navigator.pushNamed(context, '/configuracoes');
+              },
+            )
+          ],
         ),
         body: listagem());
   }
@@ -60,13 +68,9 @@ class _ComandasTelaState extends State<ComandasTela> {
             ),
             onTap: () {
               if (listacomandas[index].status == 'OCUPADA') {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => ItensComandaTela()));
+                Navigator.pushNamed(context, '/itensComanda');
               } else {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => GruposTela()));
+                Navigator.pushNamed(context, '/grupos');
               }
             },
           );

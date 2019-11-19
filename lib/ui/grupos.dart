@@ -48,8 +48,7 @@ class _GruposTelaState extends State<GruposTela> {
               trailing: Icon(Icons.arrow_forward_ios),
               leading: Icon(Icons.fastfood, color: Colors.blue),
               onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => ProdutosTela()));
+                Navigator.pushNamed(context, '/produtos');
               },
             );
           }),

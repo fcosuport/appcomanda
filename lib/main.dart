@@ -1,5 +1,9 @@
 import 'package:appcomanda/ui/comandas.dart';
 import 'package:appcomanda/ui/configuracoes.dart';
+import 'package:appcomanda/ui/grupos.dart';
+import 'package:appcomanda/ui/inserirproduto.dart';
+import 'package:appcomanda/ui/itenscomanda.dart';
+import 'package:appcomanda/ui/produtos.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter/material.dart';
 
@@ -24,6 +28,14 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
+      routes: <String, WidgetBuilder>{
+        '/comandas': (context) => ComandasTela(),
+        '/configuracoes': (context) => Configuracoes(),
+        '/grupos': (context) => GruposTela(),
+        '/produtos': (context) => ProdutosTela(),
+        '/inserirProduto': (context) => InserirProdutoTela(),
+        '/itensComanda': (context) => ItensComandaTela()
+      },
       home: FutureBuilder(
         future: _verificaURLAPI(),
         builder: (context, snapshot) {

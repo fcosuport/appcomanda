@@ -55,10 +55,7 @@ class _ProdutosTelaState extends State<ProdutosTela> {
               ),
               trailing: Icon(Icons.arrow_forward_ios),
               onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => InserirProdutoTela()));
+                Navigator.pushNamed(context, '/inserirProduto');
               },
             );
           }),
