@@ -26,9 +26,7 @@ class _ConfiguracoesState extends State<Configuracoes> {
     _salvarURLAPI() async {
       final storage = new FlutterSecureStorage();
       await storage.write(key: 'URLAPI', value: _controller.text);
-      Navigator.pop(context);
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => ComandasTela()));
+      Navigator.popAndPushNamed(context, '/comandas');
     }
 
     return Scaffold(
@@ -43,13 +41,12 @@ class _ConfiguracoesState extends State<Configuracoes> {
           children: <Widget>[
             TextField(
               controller: _controller,
-              autofocus: true,
               keyboardType: TextInputType.url,
               textInputAction: TextInputAction.done,
               maxLines: 1,
               decoration: InputDecoration(
                   hintText: 'URL da API',
-                  helperText: 'Ex: https://192.168.0.1:8080',
+                  helperText: 'Ex: https://167.114.135.196:8171',
                   border: OutlineInputBorder()),
             ),
             SizedBox(height: 15.0),
