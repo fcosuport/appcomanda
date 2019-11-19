@@ -20,6 +20,7 @@ class Requests {
     final storage = new FlutterSecureStorage();
     var url =
         '${await storage.read(key: 'URLAPI')}/eventos/listaprodutos?cdgrupo=$grupo';
+    print(url);
     return await http.get(url);
   }
 
@@ -27,6 +28,7 @@ class Requests {
     final storage = new FlutterSecureStorage();
     var url =
         '${await storage.read(key: 'URLAPI')}/eventos/itenscomanda?cdpedido=$pedido';
+    print(url);
     return await http.get(url);
   }
 }

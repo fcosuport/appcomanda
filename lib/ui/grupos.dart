@@ -49,6 +49,7 @@ class _GruposTelaState extends State<GruposTela> {
               trailing: Icon(Icons.arrow_forward_ios),
               leading: Icon(Icons.fastfood, color: Colors.blue),
               onTap: () {
+                print(listagrupos[index].cdgrupo);
                 Navigator.push(
                     context,
                     MaterialPageRoute(
