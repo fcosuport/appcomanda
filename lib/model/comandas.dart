@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 class ListaComandas {
   String codigo;
   String descricao;
@@ -24,7 +26,7 @@ class ListaComandas {
       this.pedircliente,
       this.cliente});
 
-  ListaComandas.fromJson(Map<String, dynamic> json) {
+  ListaComandas.fromMap(Map<String, dynamic> json) {
     codigo = json['CODIGO'];
     descricao = json['DESCRICAO'];
     numero = json['NUMERO'];
@@ -37,4 +39,23 @@ class ListaComandas {
     pedircliente = json['PEDIRCLIENTE'];
     cliente = json['CLIENTE'];
   }
+
+  Map<String, dynamic> toMap() => {
+        'CODIGO': codigo,
+        'DESCRICAO': descricao,
+        'NUMERO': numero,
+        'NUMPEDIDO': numpedido,
+        'STATUS': status,
+        'TXSERVICO': txservico,
+        'GARCON': garcon,
+        'SEMTAXA': semtaxa,
+        'PEDIRGARCON': pedirgarcon,
+        'PEDIRCLIENTE': pedircliente,
+        'CLIENTE': cliente
+      };
+
+  factory ListaComandas.fromJson(String value) =>
+      ListaComandas.fromMap(json.decode(value));
+
+  String toJson() => json.encode(toMap());
 }
