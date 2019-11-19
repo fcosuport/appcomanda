@@ -31,18 +31,16 @@ class _ComandasTelaState extends State<ComandasTela> {
             )
           ],
         ),
-        body: _listagem());
+        body: _listaComandas());
   }
 
-  Widget _listagem() {
+  Widget _listaComandas() {
     return FutureBuilder<List<ListaComandas>>(
       future: _getComandas(),
       builder: (context, snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.active:
-            return Container();
           case ConnectionState.none:
-            return Container();
           case ConnectionState.waiting:
             return Container(
               child: Center(
@@ -55,42 +53,42 @@ class _ComandasTelaState extends State<ComandasTela> {
               shrinkWrap: true,
               itemCount: comanda.length,
               itemBuilder: (context, index) {
-                return ListTile(
-                  title: Text(
-                    comanda[index].numero,
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  subtitle: Text(
-                      '${comanda[index].descricao} ${comanda[index].status}'),
-                  trailing: Icon(Icons.arrow_forward_ios),
-                  leading: CircleAvatar(
-                    backgroundColor: comanda[index].status == 'OCUPADA'
-                        ? Colors.red
-                        : Colors.green,
-                  ),
-                  onTap: () {
-                    if (comanda[index].status == 'OCUPADA') {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => ItensComandaTela(),
-                              settings: RouteSettings(
-                                  arguments: ItensComandaArguments(
-                                      comanda[index].numpedido,
-                                      comanda[index].descricao,
-                                      comanda[index].numero))));
-                    } else {
-                      Navigator.pushNamed(context, '/grupos');
-                    }
-                  },
-                );
+                return _comandaTile(comanda[index]);
               },
             );
             break;
           default:
+        }
+      },
+    );
+  }
+
+  Widget _comandaTile(ListaComandas comanda) {
+    return ListTile(
+      title: Text(
+        comanda.numero,
+        style: TextStyle(
+          fontSize: 20,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+      subtitle: Text('${comanda.descricao} ${comanda.status}'),
+      trailing: Icon(Icons.arrow_forward_ios),
+      leading: CircleAvatar(
+        backgroundColor:
+            comanda.status == 'OCUPADA' ? Colors.red : Colors.green,
+      ),
+      onTap: () {
+        if (comanda.status == 'OCUPADA') {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => ItensComandaTela(),
+                  settings: RouteSettings(
+                      arguments: ItensComandaArguments(comanda.numpedido,
+                          comanda.descricao, comanda.numero))));
+        } else {
+          Navigator.pushNamed(context, '/grupos');
         }
       },
     );
