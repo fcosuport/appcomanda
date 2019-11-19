@@ -16,15 +16,17 @@ class Requests {
     return await http.get(url);
   }
 
-  static Future getListaProdutos() async {
+  static Future getListaProdutos(String grupo) async {
     final storage = new FlutterSecureStorage();
-    var url = '${await storage.read(key: 'URLAPI')}/eventos/listaprodutos';
+    var url =
+        '${await storage.read(key: 'URLAPI')}/eventos/listaprodutos?cdgrupo=$grupo';
     return await http.get(url);
   }
 
-  static Future getItensComanda() async {
+  static Future getItensComanda(String pedido) async {
     final storage = new FlutterSecureStorage();
-    var url = '${await storage.read(key: 'URLAPI')}/eventos/itenscomanda';
+    var url =
+        '${await storage.read(key: 'URLAPI')}/eventos/itenscomanda?cdpedido=$pedido';
     return await http.get(url);
   }
 }
