@@ -1,13 +1,14 @@
 class ProdutosArguments {
-  final String grupo;
-  final String nome;
+  final String cdgrupo;
+  final String descricao;
 
-  ProdutosArguments(this.grupo, this.nome);
+  ProdutosArguments(this.cdgrupo, this.descricao);
 }
 
 class ItensComandaArguments {
-  final String pedido;
-  final String nome;
+  final String numpedido;
+  final String descricao;
+  final String numero;
 
-  ItensComandaArguments(this.pedido, this.nome);
+  ItensComandaArguments(this.numpedido, this.descricao, this.numero);
 }

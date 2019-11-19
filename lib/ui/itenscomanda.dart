@@ -7,7 +7,9 @@ class ItensComandaTela extends StatefulWidget {
 }
 
 class _ItensComandaTelaState extends State<ItensComandaTela> {
-  String _pedido;
+  String _numpedido;
+  String _numero;
+  String _descricao;
 
   @override
   Widget build(BuildContext context) {
@@ -15,12 +17,14 @@ class _ItensComandaTelaState extends State<ItensComandaTela> {
         ModalRoute.of(context).settings.arguments;
 
     setState(() {
-      _pedido = args.pedido;
+      _numpedido = args.numpedido;
+      _numero = args.numero;
+      _descricao = args.descricao;
     });
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Itens da Comanda $_pedido'),
+        title: Text('$_descricao $_numero'),
         centerTitle: true,
       ),
       //body:
