@@ -29,4 +29,11 @@ class Requests {
         '${await storage.read(key: 'URLAPI')}/eventos/itenscomanda?cdpedido=$pedido';
     return await http.get(url);
   }
+
+  static Future getPedido(String pedido) async {
+    final storage = new FlutterSecureStorage();
+    var url =
+        '${await storage.read(key: 'URLAPI')}/eventos/pedido?cdpedido=$pedido';
+    return await http.get(url);
+  }
 }
