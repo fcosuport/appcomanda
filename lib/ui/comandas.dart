@@ -1,8 +1,6 @@
 import 'dart:convert';
 import 'package:appcomanda/model/comandas.dart';
 import 'package:appcomanda/request/requests.dart';
-import 'package:appcomanda/ui/grupos.dart';
-import 'package:appcomanda/ui/itenscomanda.dart';
 import 'package:flutter/material.dart';
 
 class ComandasTela extends StatefulWidget {

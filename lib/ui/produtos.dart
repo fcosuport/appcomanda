@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:appcomanda/model/produtos.dart';
 import 'package:appcomanda/request/requests.dart';
-import 'package:appcomanda/ui/inserirproduto.dart';
 import 'package:flutter/material.dart';
 
 class ProdutosTela extends StatefulWidget {

@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:appcomanda/model/grupos.dart';
 import 'package:appcomanda/request/requests.dart';
-import 'package:appcomanda/ui/produtos.dart';
 import 'package:flutter/material.dart';
 
 class GruposTela extends StatefulWidget {
