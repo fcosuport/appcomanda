@@ -75,6 +75,7 @@ class _ComandasTelaState extends State<ComandasTela> {
       subtitle: Text('${comanda.descricao} ${comanda.status}'),
       trailing: Icon(Icons.arrow_forward_ios),
       leading: CircleAvatar(
+        child: Icon(comanda.status == 'OCUPADA' ? Icons.lock : Icons.lock_open, color: Colors.white),
         backgroundColor:
             comanda.status == 'OCUPADA' ? Colors.red : Colors.green,
       ),
