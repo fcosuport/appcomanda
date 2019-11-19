@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'package:appcomanda/model/comandas.dart';
 import 'package:appcomanda/request/requests.dart';
+import 'package:appcomanda/ui/itenscomanda.dart';
+import 'package:appcomanda/utils/arguments.dart';
 import 'package:flutter/material.dart';
 
 class ComandasTela extends StatefulWidget {
@@ -66,7 +68,13 @@ class _ComandasTelaState extends State<ComandasTela> {
             ),
             onTap: () {
               if (listacomandas[index].status == 'OCUPADA') {
-                Navigator.pushNamed(context, '/itensComanda');
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ItensComandaTela(),
+                        settings: RouteSettings(
+                            arguments: ItensComandaArguments(
+                                listacomandas[index].numpedido))));
               } else {
                 Navigator.pushNamed(context, '/grupos');
               }

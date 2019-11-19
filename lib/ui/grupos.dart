@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'package:appcomanda/model/grupos.dart';
 import 'package:appcomanda/request/requests.dart';
+import 'package:appcomanda/ui/produtos.dart';
+import 'package:appcomanda/utils/arguments.dart';
 import 'package:flutter/material.dart';
 
 class GruposTela extends StatefulWidget {
@@ -47,7 +49,13 @@ class _GruposTelaState extends State<GruposTela> {
               trailing: Icon(Icons.arrow_forward_ios),
               leading: Icon(Icons.fastfood, color: Colors.blue),
               onTap: () {
-                Navigator.pushNamed(context, '/produtos');
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ProdutosTela(),
+                        settings: RouteSettings(
+                            arguments: ProdutosArguments(
+                                listagrupos[index].cdgrupo))));
               },
             );
           }),
