@@ -74,7 +74,8 @@ class _ComandasTelaState extends State<ComandasTela> {
                         builder: (context) => ItensComandaTela(),
                         settings: RouteSettings(
                             arguments: ItensComandaArguments(
-                                listacomandas[index].numpedido))));
+                                listacomandas[index].numpedido,
+                                listacomandas[index].descricao))));
               } else {
                 Navigator.pushNamed(context, '/grupos');
               }

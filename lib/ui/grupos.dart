@@ -56,7 +56,8 @@ class _GruposTelaState extends State<GruposTela> {
                         builder: (context) => ProdutosTela(),
                         settings: RouteSettings(
                             arguments: ProdutosArguments(
-                                listagrupos[index].cdgrupo))));
+                                listagrupos[index].cdgrupo,
+                                listagrupos[index].descricao))));
               },
             );
           }),

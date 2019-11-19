@@ -11,25 +11,27 @@ class ProdutosTela extends StatefulWidget {
 
 class _ProdutosTelaState extends State<ProdutosTela> {
   List<ListaProdutos> listaprodutos = new List<ListaProdutos>();
+  String _nome;
 
   @override
   Widget build(BuildContext context) {
     final ProdutosArguments args = ModalRoute.of(context).settings.arguments;
 
     setState(() {
+      _nome = args.nome;
       Requests.getListaProdutos(args.grupo).then((response) {
-          setState(() {
-            listaprodutos = new List<ListaProdutos>();
-            Iterable lista = json.decode(response.body);
-            listaprodutos =
-                lista.map((model) => ListaProdutos.fromJson(model)).toList();
-          });
+        setState(() {
+          listaprodutos = new List<ListaProdutos>();
+          Iterable lista = json.decode(response.body);
+          listaprodutos =
+              lista.map((model) => ListaProdutos.fromJson(model)).toList();
         });
+      });
     });
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Tapiocas diversas'),
+        title: Text(_nome),
         centerTitle: true,
       ),
       body: ListView.builder(

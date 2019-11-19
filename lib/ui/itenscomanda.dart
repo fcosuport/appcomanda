@@ -20,7 +20,7 @@ class _ItensComandaTelaState extends State<ItensComandaTela> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Itens da Comanda 002'),
+        title: Text('Itens da Comanda $_pedido'),
         centerTitle: true,
       ),
       //body:
