@@ -41,7 +41,6 @@ class _ConfiguracoesState extends State<Configuracoes> {
           children: <Widget>[
             TextField(
               controller: _controller,
-              autofocus: true,
               keyboardType: TextInputType.url,
               textInputAction: TextInputAction.done,
               maxLines: 1,
