@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:appcomanda/model/produtos.dart';
 import 'package:appcomanda/request/requests.dart';
+import 'package:appcomanda/utils/arguments.dart';
 import 'package:flutter/material.dart';
 
 class ProdutosTela extends StatefulWidget {
@@ -9,10 +10,11 @@ class ProdutosTela extends StatefulWidget {
 }
 
 class _ProdutosTelaState extends State<ProdutosTela> {
-  var listaprodutos = new List<ListaProdutos>();
+  List<ListaProdutos> listaprodutos = new List<ListaProdutos>();
+  String _grupo;
 
   _getListaProdutos() {
-    Requests.getListaProdutos().then((response) {
+    Requests.getListaProdutos(_grupo).then((response) {
       setState(() {
         Iterable lista = json.decode(response.body);
         listaprodutos =
@@ -27,6 +29,12 @@ class _ProdutosTelaState extends State<ProdutosTela> {
 
   @override
   Widget build(BuildContext context) {
+    final ProdutosArguments args = ModalRoute.of(context).settings.arguments;
+
+    setState(() {
+      _grupo = args.grupo;
+    });
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Tapiocas diversas'),
