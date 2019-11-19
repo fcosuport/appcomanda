@@ -50,4 +50,10 @@ class Requests {
         '${await storage.read(key: 'URLAPI')}/eventos/pedido?cdpedido=$pedido';
     return await http.get(url);
   }
+
+  static Future getListaGarcon() async {
+    final storage = new FlutterSecureStorage();
+    var url = '${await storage.read(key: 'URLAPI')}/eventos/listagarcon';
+    return await http.get(url);
+  }
 }

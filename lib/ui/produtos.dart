@@ -1,3 +1,5 @@
+//import 'dart:ffi';
+//import 'package:intl/intl.dart';
 import 'dart:convert';
 import 'package:appcomanda/model/produtos.dart';
 import 'package:appcomanda/request/requests.dart';
@@ -12,6 +14,7 @@ class ProdutosTela extends StatefulWidget {
 class _ProdutosTelaState extends State<ProdutosTela> {
   List<ListaProdutos> listaprodutos = new List<ListaProdutos>();
   String _descricao;
+  //final _numberformat = new NumberFormat("#,##0.00", "en_US");
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +50,9 @@ class _ProdutosTelaState extends State<ProdutosTela> {
                 ),
               ),
               subtitle: Text(
-                'R\$${double.parse(listaprodutos[index].prvenda).toStringAsFixed(2).replaceAll('.', ',')}',
+                listaprodutos[index].prvenda,
+                //_numberformat.format(listaprodutos[index].prvenda),
+                //'R\$${double.parse(listaprodutos[index].prvenda).toStringAsFixed(2).replaceAll('.', ',')}',
                 style: TextStyle(
                   fontSize: 18,
                   color: Colors.green,
