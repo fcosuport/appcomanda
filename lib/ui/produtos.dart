@@ -14,6 +14,7 @@ class _ProdutosTelaState extends State<ProdutosTela> {
   String _cdgrupo;
   String _descricao;
   String _codigocomanda;
+  String _cdgarcon;
 
   Future<List<ListaProdutos>> _getProdutos() async {
     List<ListaProdutos> produtos = await Requests.getListaProdutos(_cdgrupo);
@@ -28,6 +29,7 @@ class _ProdutosTelaState extends State<ProdutosTela> {
       _cdgrupo = args.cdgrupo;
       _descricao = args.descricao;
       _codigocomanda = args.codigocomanda;
+      _cdgarcon = args.cdgarcon;
     });
 
     return Scaffold(
@@ -93,8 +95,8 @@ class _ProdutosTelaState extends State<ProdutosTela> {
             MaterialPageRoute(
                 builder: (context) => InserirProdutoTela(),
                 settings: RouteSettings(
-                    arguments: InserirItemArguments(
-                        produto.controle, produto.descricao, _codigocomanda))));
+                    arguments: InserirItemArguments(produto.controle,
+                        produto.descricao, _codigocomanda, _cdgarcon))));
       },
     );
   }

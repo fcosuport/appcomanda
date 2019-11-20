@@ -9,6 +9,8 @@ class InserirProdutoTela extends StatefulWidget {
 class _InserirProdutoTelaState extends State<InserirProdutoTela> {
   String _controle;
   String _descricao;
+  String _codigocomanda;
+  String _cdgarcon;
 
   @override
   Widget build(BuildContext context) {
@@ -17,6 +19,8 @@ class _InserirProdutoTelaState extends State<InserirProdutoTela> {
     setState(() {
       _controle = args.controle;
       _descricao = args.descricao;
+      _codigocomanda = args.codigocomanda;
+      _cdgarcon = args.cdgarcon;
     });
 
     return Scaffold(

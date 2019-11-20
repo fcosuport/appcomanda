@@ -15,6 +15,7 @@ class _ItensComandaTelaState extends State<ItensComandaTela> {
   String _numero;
   String _descricao;
   String _codigocomanda;
+  String _cdgarcon;
 
   Future<List<ItensComanda>> _getItensComanda() async {
     List<ItensComanda> itens = await Requests.getItensComanda(_numpedido);
@@ -31,6 +32,7 @@ class _ItensComandaTelaState extends State<ItensComandaTela> {
       _numero = args.numero;
       _descricao = args.descricao;
       _codigocomanda = args.codigocomanda;
+      _cdgarcon = args.cdgarcon;
     });
 
     return Scaffold(
@@ -65,7 +67,8 @@ class _ItensComandaTelaState extends State<ItensComandaTela> {
                   MaterialPageRoute(
                       builder: (context) => GruposTela(),
                       settings: RouteSettings(
-                          arguments: GruposArguments(_codigocomanda))));
+                          arguments:
+                              GruposArguments(_codigocomanda, _cdgarcon))));
             },
             child: Icon(Icons.add, color: Colors.white),
             backgroundColor: Colors.amber),
