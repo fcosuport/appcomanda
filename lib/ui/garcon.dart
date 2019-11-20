@@ -1,3 +1,5 @@
+import 'package:appcomanda/ui/grupos.dart';
+import 'package:appcomanda/utils/arguments.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
@@ -10,6 +12,8 @@ class GarconTela extends StatefulWidget {
 }
 
 class _GarconTelaState extends State<GarconTela> {
+  String _numeroComanda;
+
   Future<List<ListaGarcon>> _getGarcons() async {
     List<ListaGarcon> garcons = await Requests.getListaGarcon();
     return garcons;
@@ -17,6 +21,12 @@ class _GarconTelaState extends State<GarconTela> {
 
   @override
   Widget build(BuildContext context) {
+    final GarconsArguments args = ModalRoute.of(context).settings.arguments;
+
+    setState(() {
+      _numeroComanda = args.numeroComanda;
+    });
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Lista de Garçons'),
@@ -69,7 +79,12 @@ class _GarconTelaState extends State<GarconTela> {
         child: Icon(Icons.person, color: Colors.white),
       ),
       onTap: () {
-        Navigator.pushNamed(context, '/grupos');
+        Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => GruposTela(),
+                  settings: RouteSettings(
+                      arguments: GruposArguments(_numeroComanda))));
       },
     );
   }

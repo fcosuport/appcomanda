@@ -11,6 +11,8 @@ class GruposTela extends StatefulWidget {
 }
 
 class _GruposTelaState extends State<GruposTela> {
+  String _numeroComanda;
+
   Future<List<ListaGrupos>> _getGrupos() async {
     List<ListaGrupos> grupos = await Requests.getListaGrupos();
     return grupos;
@@ -18,6 +20,12 @@ class _GruposTelaState extends State<GruposTela> {
 
   @override
   Widget build(BuildContext context) {
+    final GruposArguments args = ModalRoute.of(context).settings.arguments;
+
+    setState(() {
+      _numeroComanda = args.numeroComanda;
+    });
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Grupo de Produtos'),
