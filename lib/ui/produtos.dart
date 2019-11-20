@@ -87,7 +87,6 @@ class _ProdutosTelaState extends State<ProdutosTela> {
       trailing: Icon(Icons.arrow_forward_ios),
       //leading: Icon(Icons.fastfood, color: Colors.blue),
       onTap: () {
-        print(produto.controle);
         Navigator.push(
             context,
             MaterialPageRoute(
