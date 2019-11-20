@@ -83,8 +83,9 @@ class _GarconTelaState extends State<GarconTela> {
             context,
             MaterialPageRoute(
                 builder: (context) => GruposTela(),
-                settings:
-                    RouteSettings(arguments: GruposArguments(_codigocomanda))));
+                settings: RouteSettings(
+                    arguments: GruposArguments(
+                        _codigocomanda, garcon.cdprofissional))));
       },
     );
   }
