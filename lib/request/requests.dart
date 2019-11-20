@@ -1,11 +1,11 @@
 import 'package:appcomanda/model/comandas.dart';
+import 'package:appcomanda/model/grupos.dart';
 import 'package:appcomanda/model/itenscomanda.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 
 class Requests {
-
   static Future<List<ListaComandas>> getListaComandas() async {
     final storage = new FlutterSecureStorage();
     List<ListaComandas> comandas = [];
@@ -27,29 +27,16 @@ class Requests {
     return comandas;
   }
 
-  static Future getListaGrupos() async {
-    final storage = new FlutterSecureStorage();
-    var url = '${await storage.read(key: 'URLAPI')}/eventos/listagrupos';
-    return await http.get(url);
-  }
-
-  static Future getListaProdutos(String grupo) async {
-    final storage = new FlutterSecureStorage();
-    var url =
-        '${await storage.read(key: 'URLAPI')}/eventos/listaprodutos?cdgrupo=$grupo';
-    print(url);
-    return await http.get(url);
-  }
-
-  static Future getItensComanda(String pedido) async {
+  static Future<List<ItensComanda>> getItensComanda(String pedido) async {
     final storage = new FlutterSecureStorage();
     List<ItensComanda> itensComanda = [];
     var json = [];
     Dio dio = new Dio();
     try {
-      Response response = await dio.get('${await storage.read(key: 'URLAPI')}/eventos/itenscomanda?cdpedido=$pedido');
+      Response response = await dio.get(
+          '${await storage.read(key: 'URLAPI')}/eventos/itenscomanda?cdpedido=$pedido');
       json = response.data;
-    } catch(e) {
+    } catch (e) {
       print(e);
     }
     if (json != []) {
@@ -59,6 +46,35 @@ class Requests {
       });
     }
     return itensComanda;
+  }
+
+  static Future<List<ListaGrupos>> getListaGrupos() async {
+    final storage = new FlutterSecureStorage();
+    List<ListaGrupos> listaGrupo = [];
+    var json = [];
+    Dio dio = new Dio();
+    try {
+      Response response = await dio
+          .get('${await storage.read(key: 'URLAPI')}/eventos/listagrupos');
+      json = response.data;
+    } catch (e) {
+      print(e);
+    }
+    if (json != []) {
+      json.forEach(((grupos) {
+        ListaGrupos grupo = ListaGrupos.fromJson(grupos);
+        listaGrupo.add(grupo);
+      }));
+    }
+    return listaGrupo;
+  }
+
+  static Future getListaProdutos(String grupo) async {
+    final storage = new FlutterSecureStorage();
+    var url =
+        '${await storage.read(key: 'URLAPI')}/eventos/listaprodutos?cdgrupo=$grupo';
+    print(url);
+    return await http.get(url);
   }
 
   static Future getPedido(String pedido) async {

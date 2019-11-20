@@ -1,9 +1,10 @@
-import 'dart:convert';
+import 'package:appcomanda/model/comandas.dart';
 import 'package:appcomanda/model/grupos.dart';
 import 'package:appcomanda/request/requests.dart';
 import 'package:appcomanda/ui/produtos.dart';
 import 'package:appcomanda/utils/arguments.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class GruposTela extends StatefulWidget {
   @override
@@ -11,20 +12,9 @@ class GruposTela extends StatefulWidget {
 }
 
 class _GruposTelaState extends State<GruposTela> {
-  var listagrupos = new List<ListaGrupos>();
-
-  _getListaGrupos() {
-    Requests.getListaGrupos().then((response) {
-      setState(() {
-        Iterable lista = json.decode(response.body);
-        listagrupos =
-            lista.map((model) => ListaGrupos.fromJson(model)).toList();
-      });
-    });
-  }
-
-  _GruposTelaState() {
-    _getListaGrupos();
+  Future<List<ListaGrupos>> _getGrupos() async {
+    List<ListaGrupos> grupos = await Requests.getListaGrupos();
+    return grupos;
   }
 
   @override
@@ -34,33 +24,59 @@ class _GruposTelaState extends State<GruposTela> {
         title: Text('Grupo de Produtos'),
         centerTitle: true,
       ),
-      body: ListView.builder(
-          //shrinkWrap: true,
-          itemCount: listagrupos.length,
-          itemBuilder: (context, index) {
-            return ListTile(
-              title: Text(
-                listagrupos[index].descricao,
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
+      body: _listaGrupos(),
+    );
+  }
+
+  Widget _listaGrupos() {
+    return FutureBuilder<List<ListaGrupos>>(
+      future: _getGrupos(),
+      builder: (context, snapshot) {
+        switch (snapshot.connectionState) {
+          case ConnectionState.active:
+          case ConnectionState.none:
+          case ConnectionState.waiting:
+            return Container(
+              child: Center(
+                child: SpinKitWave(color: Colors.blue),
               ),
-              trailing: Icon(Icons.arrow_forward_ios),
-              leading: Icon(Icons.fastfood, color: Colors.blue),
-              onTap: () {
-                print(listagrupos[index].cdgrupo);
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => ProdutosTela(),
-                        settings: RouteSettings(
-                            arguments: ProdutosArguments(
-                                listagrupos[index].cdgrupo,
-                                listagrupos[index].descricao))));
+            );
+          case ConnectionState.done:
+            List<ListaGrupos> grupos = snapshot.data;
+            return ListView.builder(
+              shrinkWrap: true,
+              itemCount: grupos.length,
+              itemBuilder: (context, index) {
+                return _grupoTile(grupos[index]);
               },
             );
-          }),
+            break;
+        }
+      },
+    );
+  }
+
+  Widget _grupoTile(ListaGrupos grupo) {
+    return ListTile(
+      title: Text(
+        grupo.descricao,
+        style: TextStyle(
+          fontSize: 18.0,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+      trailing: Icon(Icons.arrow_forward_ios),
+      leading: Icon(Icons.fastfood, color: Colors.blue),
+      onTap: () {
+        print(grupo.cdgrupo);
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => ProdutosTela(),
+                settings: RouteSettings(
+                    arguments:
+                        ProdutosArguments(grupo.cdgrupo, grupo.descricao))));
+      },
     );
   }
 }

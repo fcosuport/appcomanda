@@ -8,4 +8,6 @@ class ListaGrupos {
     cdgrupo = json['CDGRUPO'];
     descricao = json['DESCRICAO'];
   }
+
+  Map<String, dynamic> toMap() => {'CDGRUPO': cdgrupo, 'DESCRICAO': descricao};
 }
