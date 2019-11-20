@@ -1,5 +1,6 @@
 import 'package:appcomanda/ui/comandas.dart';
 import 'package:appcomanda/ui/configuracoes.dart';
+import 'package:appcomanda/ui/garcon.dart';
 import 'package:appcomanda/ui/grupos.dart';
 import 'package:appcomanda/ui/inserirproduto.dart';
 import 'package:appcomanda/ui/itenscomanda.dart';
@@ -34,7 +35,8 @@ class _MyAppState extends State<MyApp> {
         '/grupos': (context) => GruposTela(),
         '/produtos': (context) => ProdutosTela(),
         '/inserirProduto': (context) => InserirProdutoTela(),
-        '/itensComanda': (context) => ItensComandaTela()
+        '/itensComanda': (context) => ItensComandaTela(),
+        '/garcons': (context) => GarconTela()
       },
       home: FutureBuilder(
         future: _verificaURLAPI(),

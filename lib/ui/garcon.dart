@@ -1,26 +1,27 @@
-import 'package:appcomanda/model/grupos.dart';
-import 'package:appcomanda/request/requests.dart';
-import 'package:appcomanda/ui/produtos.dart';
+import 'package:appcomanda/ui/grupos.dart';
 import 'package:appcomanda/utils/arguments.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
-class GruposTela extends StatefulWidget {
+import '../model/garcon.dart';
+import '../request/requests.dart';
+
+class GarconTela extends StatefulWidget {
   @override
-  _GruposTelaState createState() => _GruposTelaState();
+  _GarconTelaState createState() => _GarconTelaState();
 }
 
-class _GruposTelaState extends State<GruposTela> {
+class _GarconTelaState extends State<GarconTela> {
   String _numeroComanda;
 
-  Future<List<ListaGrupos>> _getGrupos() async {
-    List<ListaGrupos> grupos = await Requests.getListaGrupos();
-    return grupos;
+  Future<List<ListaGarcon>> _getGarcons() async {
+    List<ListaGarcon> garcons = await Requests.getListaGarcon();
+    return garcons;
   }
 
   @override
   Widget build(BuildContext context) {
-    final GruposArguments args = ModalRoute.of(context).settings.arguments;
+    final GarconsArguments args = ModalRoute.of(context).settings.arguments;
 
     setState(() {
       _numeroComanda = args.numeroComanda;
@@ -28,16 +29,16 @@ class _GruposTelaState extends State<GruposTela> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Grupo de Produtos'),
+        title: Text('Lista de Garçons'),
         centerTitle: true,
       ),
-      body: _listaGrupos(),
+      body: _listaGarcons(),
     );
   }
 
-  Widget _listaGrupos() {
-    return FutureBuilder<List<ListaGrupos>>(
-      future: _getGrupos(),
+  Widget _listaGarcons() {
+    return FutureBuilder<List<ListaGarcon>>(
+      future: _getGarcons(),
       builder: (context, snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.active:
@@ -49,12 +50,12 @@ class _GruposTelaState extends State<GruposTela> {
               ),
             );
           case ConnectionState.done:
-            List<ListaGrupos> grupos = snapshot.data;
+            List<ListaGarcon> garcons = snapshot.data;
             return ListView.builder(
               shrinkWrap: true,
-              itemCount: grupos.length,
+              itemCount: garcons.length,
               itemBuilder: (context, index) {
-                return _grupoTile(grupos[index]);
+                return _garconTile(garcons[index]);
               },
             );
             break;
@@ -63,10 +64,10 @@ class _GruposTelaState extends State<GruposTela> {
     );
   }
 
-  Widget _grupoTile(ListaGrupos grupo) {
+  Widget _garconTile(ListaGarcon garcon) {
     return ListTile(
       title: Text(
-        grupo.descricao,
+        garcon.nome,
         style: TextStyle(
           fontSize: 18.0,
           fontWeight: FontWeight.bold,
@@ -75,16 +76,15 @@ class _GruposTelaState extends State<GruposTela> {
       trailing: Icon(Icons.arrow_forward_ios),
       leading: CircleAvatar(
         backgroundColor: Colors.blue,
-        child: Icon(Icons.fastfood, color: Colors.white),
+        child: Icon(Icons.person, color: Colors.white),
       ),
       onTap: () {
         Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => ProdutosTela(),
-                settings: RouteSettings(
-                    arguments: ProdutosArguments(
-                        grupo.cdgrupo, grupo.descricao, _codigomesa))));
+              context,
+              MaterialPageRoute(
+                  builder: (context) => GruposTela(),
+                  settings: RouteSettings(
+                      arguments: GruposArguments(_numeroComanda))));
       },
     );
   }

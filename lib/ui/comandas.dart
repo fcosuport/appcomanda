@@ -2,6 +2,8 @@ import 'package:appcomanda/model/comandas.dart';
 import 'package:appcomanda/request/requests.dart';
 import 'package:appcomanda/ui/grupos.dart';
 import 'package:appcomanda/ui/itenscomanda.dart';
+import 'package:appcomanda/ui/garcon.dart';
+import 'package:appcomanda/ui/grupos.dart';
 import 'package:appcomanda/utils/arguments.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -91,13 +93,21 @@ class _ComandasTelaState extends State<ComandasTela> {
                       arguments: ItensComandaArguments(comanda.numpedido,
                           comanda.descricao, comanda.numero, comanda.codigo))));
         } else {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => GruposTela(),
-                  settings: RouteSettings(
-                      arguments: GruposArguments(comanda.codigo))));
-          //Navigator.pushNamed(context, '/grupos');
+          if (comanda.pedirgarcon == 'T') {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => GarconTela(),
+                    settings: RouteSettings(
+                        arguments: GarconsArguments(comanda.numero))));
+          } else {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => GruposTela(),
+                    settings: RouteSettings(
+                        arguments: GruposArguments(comanda.numero))));
+          }
         }
       },
     );

@@ -29,3 +29,15 @@ class InserirItemArguments {
 
   InserirItemArguments(this.controle, this.descricao, this.codigomesa);
 }
+
+class GarconsArguments {
+  final String numeroComanda;
+
+  GarconsArguments(this.numeroComanda);
+}
+
+class GruposArguments {
+  final String numeroComanda;
+
+  GruposArguments(this.numeroComanda);
+}

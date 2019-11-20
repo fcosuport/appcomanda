@@ -6,6 +6,8 @@ import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 
+import '../model/garcon.dart';
+
 class Requests {
   static Future<List<ListaComandas>> getListaComandas() async {
     final storage = new FlutterSecureStorage();
@@ -100,7 +102,19 @@ class Requests {
 
   static Future getListaGarcon() async {
     final storage = new FlutterSecureStorage();
-    var url = '${await storage.read(key: 'URLAPI')}/eventos/listagarcon';
-    return await http.get(url);
+    List<ListaGarcon> listaGarcon = [];
+    var json = [];
+    Dio dio = new Dio();
+    try {
+      Response response = await dio.get('${await storage.read(key: 'URLAPI')}/eventos/listagarcon');
+      json = response.data;
+    } catch(e) {
+      print(e);
+    }
+    json.forEach((garcons) {
+      ListaGarcon garcon = ListaGarcon.fromJson(garcons);
+      listaGarcon.add(garcon);
+    });
+    return listaGarcon;
   }
 }
