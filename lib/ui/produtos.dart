@@ -1,6 +1,3 @@
-//import 'dart:ffi';
-//import 'package:intl/intl.dart';
-//import 'dart:convert';
 import 'package:appcomanda/model/produtos.dart';
 import 'package:appcomanda/request/requests.dart';
 import 'package:appcomanda/ui/inserirproduto.dart';
@@ -33,7 +30,7 @@ class _ProdutosTelaState extends State<ProdutosTela> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('$_descricao'),
+        title: Text(_descricao),
         centerTitle: true,
       ),
       body: _listaProdutos(),

@@ -22,4 +22,13 @@ class ListaProdutos {
     unid = json['unid'];
     prvenda = json['prvenda'];
   }
+
+  Map<String, dynamic> toMap() => {
+    'controle': controle,
+    'barra': barra,
+    'refrencia': referencia,
+    'descricao': descricao,
+    'unid': unid,
+    'prvenda': prvenda
+  };
 }
