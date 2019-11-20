@@ -1,10 +1,10 @@
 import 'package:appcomanda/model/comandas.dart';
+import 'package:appcomanda/model/grupos.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 
 class Requests {
-
   static Future<List<ListaComandas>> getListaComandas() async {
     final storage = new FlutterSecureStorage();
     List<ListaComandas> comandas = [];
@@ -26,10 +26,25 @@ class Requests {
     return comandas;
   }
 
-  static Future getListaGrupos() async {
+  static Future<List<ListaGrupos>> getListaGrupos() async {
     final storage = new FlutterSecureStorage();
-    var url = '${await storage.read(key: 'URLAPI')}/eventos/listagrupos';
-    return await http.get(url);
+    List<ListaGrupos> grupos = [];
+    var json = [];
+    Dio dio = new Dio();
+    try {
+      Response response = await dio
+          .get('${await storage.read(key: 'URLAPI')}/eventos/listagrupos');
+      json = response.data;
+    } catch (e) {
+      print(e);
+    }
+    if (json != []) {
+      json.forEach((grupo) {
+        ListaGrupos lista = ListaGrupos.fromMap(grupo);
+        grupos.add(lista);
+      });
+    }
+    return grupos;
   }
 
   static Future getListaProdutos(String grupo) async {
