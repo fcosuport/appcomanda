@@ -12,7 +12,7 @@ class GarconTela extends StatefulWidget {
 }
 
 class _GarconTelaState extends State<GarconTela> {
-  String _numeroComanda;
+  String _codigocomanda;
 
   Future<List<ListaGarcon>> _getGarcons() async {
     List<ListaGarcon> garcons = await Requests.getListaGarcon();
@@ -24,7 +24,7 @@ class _GarconTelaState extends State<GarconTela> {
     final GarconsArguments args = ModalRoute.of(context).settings.arguments;
 
     setState(() {
-      _numeroComanda = args.numeroComanda;
+      _codigocomanda = args.codigocomanda;
     });
 
     return Scaffold(
@@ -80,11 +80,11 @@ class _GarconTelaState extends State<GarconTela> {
       ),
       onTap: () {
         Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => GruposTela(),
-                  settings: RouteSettings(
-                      arguments: GruposArguments(_numeroComanda))));
+            context,
+            MaterialPageRoute(
+                builder: (context) => GruposTela(),
+                settings:
+                    RouteSettings(arguments: GruposArguments(_codigocomanda))));
       },
     );
   }

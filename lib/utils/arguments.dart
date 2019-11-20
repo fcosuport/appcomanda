@@ -1,43 +1,37 @@
 class GruposArguments {
-  final String codigomesa;
+  final String codigocomanda;
 
-  GruposArguments(this.codigomesa);
+  GruposArguments(this.codigocomanda);
 }
 
 class ProdutosArguments {
   final String cdgrupo;
   final String descricao;
-  final String codigomesa;
+  final String codigocomanda;
 
-  ProdutosArguments(this.cdgrupo, this.descricao, this.codigomesa);
+  ProdutosArguments(this.cdgrupo, this.descricao, this.codigocomanda);
 }
 
 class ItensComandaArguments {
   final String numpedido;
   final String descricao;
   final String numero;
-  final String codigomesa;
+  final String codigocomanda;
 
   ItensComandaArguments(
-      this.numpedido, this.descricao, this.numero, this.codigomesa);
+      this.numpedido, this.descricao, this.numero, this.codigocomanda);
 }
 
 class InserirItemArguments {
   final String controle;
   final String descricao;
-  final String codigomesa;
+  final String codigocomanda;
 
-  InserirItemArguments(this.controle, this.descricao, this.codigomesa);
+  InserirItemArguments(this.controle, this.descricao, this.codigocomanda);
 }
 
 class GarconsArguments {
-  final String numeroComanda;
+  final String codigocomanda;
 
-  GarconsArguments(this.numeroComanda);
-}
-
-class GruposArguments {
-  final String numeroComanda;
-
-  GruposArguments(this.numeroComanda);
+  GarconsArguments(this.codigocomanda);
 }

@@ -3,7 +3,6 @@ import 'package:appcomanda/request/requests.dart';
 import 'package:appcomanda/ui/grupos.dart';
 import 'package:appcomanda/ui/itenscomanda.dart';
 import 'package:appcomanda/ui/garcon.dart';
-import 'package:appcomanda/ui/grupos.dart';
 import 'package:appcomanda/utils/arguments.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -99,14 +98,14 @@ class _ComandasTelaState extends State<ComandasTela> {
                 MaterialPageRoute(
                     builder: (context) => GarconTela(),
                     settings: RouteSettings(
-                        arguments: GarconsArguments(comanda.numero))));
+                        arguments: GarconsArguments(comanda.codigo))));
           } else {
             Navigator.push(
                 context,
                 MaterialPageRoute(
                     builder: (context) => GruposTela(),
                     settings: RouteSettings(
-                        arguments: GruposArguments(comanda.numero))));
+                        arguments: GruposArguments(comanda.codigo))));
           }
         }
       },

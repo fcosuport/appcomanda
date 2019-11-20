@@ -13,7 +13,7 @@ class ProdutosTela extends StatefulWidget {
 class _ProdutosTelaState extends State<ProdutosTela> {
   String _cdgrupo;
   String _descricao;
-  String _codigomesa;
+  String _codigocomanda;
 
   Future<List<ListaProdutos>> _getProdutos() async {
     List<ListaProdutos> produtos = await Requests.getListaProdutos(_cdgrupo);
@@ -27,7 +27,7 @@ class _ProdutosTelaState extends State<ProdutosTela> {
     setState(() {
       _cdgrupo = args.cdgrupo;
       _descricao = args.descricao;
-      _codigomesa = args.codigomesa;
+      _codigocomanda = args.codigocomanda;
     });
 
     return Scaffold(
@@ -94,7 +94,7 @@ class _ProdutosTelaState extends State<ProdutosTela> {
                 builder: (context) => InserirProdutoTela(),
                 settings: RouteSettings(
                     arguments: InserirItemArguments(
-                        produto.controle, produto.descricao, _codigomesa))));
+                        produto.controle, produto.descricao, _codigocomanda))));
       },
     );
   }

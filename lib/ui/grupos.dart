@@ -11,7 +11,7 @@ class GruposTela extends StatefulWidget {
 }
 
 class _GruposTelaState extends State<GruposTela> {
-  String _numeroComanda;
+  String _codigocomanda;
 
   Future<List<ListaGrupos>> _getGrupos() async {
     List<ListaGrupos> grupos = await Requests.getListaGrupos();
@@ -23,7 +23,7 @@ class _GruposTelaState extends State<GruposTela> {
     final GruposArguments args = ModalRoute.of(context).settings.arguments;
 
     setState(() {
-      _numeroComanda = args.numeroComanda;
+      _codigocomanda = args.codigocomanda;
     });
 
     return Scaffold(
@@ -84,7 +84,7 @@ class _GruposTelaState extends State<GruposTela> {
                 builder: (context) => ProdutosTela(),
                 settings: RouteSettings(
                     arguments: ProdutosArguments(
-                        grupo.cdgrupo, grupo.descricao, _codigomesa))));
+                        grupo.cdgrupo, grupo.descricao, _codigocomanda))));
       },
     );
   }
