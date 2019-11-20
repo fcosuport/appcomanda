@@ -14,7 +14,6 @@ class ProdutosTela extends StatefulWidget {
 class _ProdutosTelaState extends State<ProdutosTela> {
   List<ListaProdutos> listaprodutos = new List<ListaProdutos>();
   String _descricao;
-  //final _numberformat = new NumberFormat("#,##0.00", "en_US");
 
   @override
   Widget build(BuildContext context) {
@@ -50,9 +49,7 @@ class _ProdutosTelaState extends State<ProdutosTela> {
                 ),
               ),
               subtitle: Text(
-                listaprodutos[index].prvenda,
-                //_numberformat.format(listaprodutos[index].prvenda),
-                //'R\$${double.parse(listaprodutos[index].prvenda).toStringAsFixed(2).replaceAll('.', ',')}',
+                'R\$${double.parse(listaprodutos[index].prvenda.replaceAll(',', '.')).toStringAsFixed(2).replaceAll('.', ',')}',
                 style: TextStyle(
                   fontSize: 18,
                   color: Colors.green,

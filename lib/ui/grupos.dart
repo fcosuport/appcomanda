@@ -1,4 +1,3 @@
-//import 'dart:convert';
 import 'package:appcomanda/model/grupos.dart';
 import 'package:appcomanda/request/requests.dart';
 import 'package:appcomanda/ui/produtos.dart';
@@ -13,18 +12,19 @@ class GruposTela extends StatefulWidget {
 
 class _GruposTelaState extends State<GruposTela> {
   Future<List<ListaGrupos>> _getGrupos() async {
-    List<ListaGrupos> listaRecuperada = await Requests.getListaGrupos();
-    return listaRecuperada;
+    List<ListaGrupos> grupos = await Requests.getListaGrupos();
+    return grupos;
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text('Grupo de Produtos'),
-          centerTitle: true,
-        ),
-        body: _listaGrupos());
+      appBar: AppBar(
+        title: Text('Grupo de Produtos'),
+        centerTitle: true,
+      ),
+      body: _listaGrupos(),
+    );
   }
 
   Widget _listaGrupos() {
@@ -41,16 +41,15 @@ class _GruposTelaState extends State<GruposTela> {
               ),
             );
           case ConnectionState.done:
-            List<ListaGrupos> grupo = snapshot.data;
+            List<ListaGrupos> grupos = snapshot.data;
             return ListView.builder(
               shrinkWrap: true,
-              itemCount: grupo.length,
+              itemCount: grupos.length,
               itemBuilder: (context, index) {
-                return _grupoTile(grupo[index]);
+                return _grupoTile(grupos[index]);
               },
             );
             break;
-          default:
         }
       },
     );
@@ -61,7 +60,7 @@ class _GruposTelaState extends State<GruposTela> {
       title: Text(
         grupo.descricao,
         style: TextStyle(
-          fontSize: 18,
+          fontSize: 18.0,
           fontWeight: FontWeight.bold,
         ),
       ),

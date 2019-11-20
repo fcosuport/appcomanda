@@ -1,5 +1,6 @@
 import 'package:appcomanda/model/comandas.dart';
 import 'package:appcomanda/model/grupos.dart';
+import 'package:appcomanda/model/itenscomanda.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
@@ -26,9 +27,30 @@ class Requests {
     return comandas;
   }
 
+  static Future<List<ItensComanda>> getItensComanda(String pedido) async {
+    final storage = new FlutterSecureStorage();
+    List<ItensComanda> itensComanda = [];
+    var json = [];
+    Dio dio = new Dio();
+    try {
+      Response response = await dio.get(
+          '${await storage.read(key: 'URLAPI')}/eventos/itenscomanda?cdpedido=$pedido');
+      json = response.data;
+    } catch (e) {
+      print(e);
+    }
+    if (json != []) {
+      json.forEach((item) {
+        ItensComanda itens = ItensComanda.fromMap(item);
+        itensComanda.add(itens);
+      });
+    }
+    return itensComanda;
+  }
+
   static Future<List<ListaGrupos>> getListaGrupos() async {
     final storage = new FlutterSecureStorage();
-    List<ListaGrupos> grupos = [];
+    List<ListaGrupos> listaGrupo = [];
     var json = [];
     Dio dio = new Dio();
     try {
@@ -39,26 +61,18 @@ class Requests {
       print(e);
     }
     if (json != []) {
-      json.forEach((grupo) {
-        ListaGrupos lista = ListaGrupos.fromMap(grupo);
-        grupos.add(lista);
-      });
+      json.forEach(((grupos) {
+        ListaGrupos grupo = ListaGrupos.fromJson(grupos);
+        listaGrupo.add(grupo);
+      }));
     }
-    return grupos;
+    return listaGrupo;
   }
 
   static Future getListaProdutos(String grupo) async {
     final storage = new FlutterSecureStorage();
     var url =
         '${await storage.read(key: 'URLAPI')}/eventos/listaprodutos?cdgrupo=$grupo';
-    print(url);
-    return await http.get(url);
-  }
-
-  static Future getItensComanda(String pedido) async {
-    final storage = new FlutterSecureStorage();
-    var url =
-        '${await storage.read(key: 'URLAPI')}/eventos/itenscomanda?cdpedido=$pedido';
     print(url);
     return await http.get(url);
   }

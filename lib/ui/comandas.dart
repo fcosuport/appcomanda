@@ -12,8 +12,8 @@ class ComandasTela extends StatefulWidget {
 
 class _ComandasTelaState extends State<ComandasTela> {
   Future<List<ListaComandas>> _getComandas() async {
-    List<ListaComandas> listaRecuperada = await Requests.getListaComandas();
-    return listaRecuperada;
+    List<ListaComandas> comandas = await Requests.getListaComandas();
+    return comandas;
   }
 
   @override
@@ -31,6 +31,7 @@ class _ComandasTelaState extends State<ComandasTela> {
             )
           ],
         ),
+        backgroundColor: Colors.white,
         body: _listaComandas());
   }
 
@@ -57,7 +58,6 @@ class _ComandasTelaState extends State<ComandasTela> {
               },
             );
             break;
-          default:
         }
       },
     );
@@ -75,7 +75,8 @@ class _ComandasTelaState extends State<ComandasTela> {
       subtitle: Text('${comanda.descricao} ${comanda.status}'),
       trailing: Icon(Icons.arrow_forward_ios),
       leading: CircleAvatar(
-        child: Icon(comanda.status == 'OCUPADA' ? Icons.lock : Icons.lock_open, color: Colors.white),
+        child: Icon(comanda.status == 'OCUPADA' ? Icons.lock : Icons.lock_open,
+            color: Colors.white),
         backgroundColor:
             comanda.status == 'OCUPADA' ? Colors.red : Colors.green,
       ),
