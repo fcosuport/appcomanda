@@ -12,3 +12,10 @@ class ItensComandaArguments {
 
   ItensComandaArguments(this.numpedido, this.descricao, this.numero);
 }
+
+class InserirItemArguments {
+  final String controle;
+  final String descricao;
+
+  InserirItemArguments(this.controle, this.descricao);
+}

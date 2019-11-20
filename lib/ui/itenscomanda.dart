@@ -31,15 +31,19 @@ class _ItensComandaTelaState extends State<ItensComandaTela> {
     });
 
     return Scaffold(
-      bottomSheet: Container(
-        height: 50.0,
-        width: MediaQuery.of(context).size.width,
-        color: Colors.blue,
-        child: Padding(
-          padding: const EdgeInsets.only(left: 15.0, top: 10.0),
-          child: Text('Total: R\$ 0,00', style: TextStyle(color: Colors.white, fontSize: 20.0, fontWeight: FontWeight.bold)),
+        bottomSheet: Container(
+          height: 50.0,
+          width: MediaQuery.of(context).size.width,
+          color: Colors.blue,
+          child: Padding(
+            padding: const EdgeInsets.only(left: 15.0, top: 10.0),
+            child: Text('Total: R\$ 0,00',
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.bold)),
+          ),
         ),
-      ),
         appBar: AppBar(
           title: Text('$_descricao $_numero'),
           centerTitle: true,
@@ -97,8 +101,10 @@ class _ItensComandaTelaState extends State<ItensComandaTela> {
         children: <Widget>[
           Text('Qtde: ${itens.qtde}'),
           Text(itens.unid),
-          Text('R\$ ${double.parse(itens.unitario.replaceAll(',', '.')).toStringAsFixed(2).replaceAll('.', ',')}'),
-          Text('R\$ ${double.parse(itens.totalitem.replaceAll(',', '.')).toStringAsFixed(2).replaceAll('.', ',')}')
+          Text(
+              'R\$ ${double.parse(itens.unitario.replaceAll(',', '.')).toStringAsFixed(2).replaceAll('.', ',')}'),
+          Text(
+              'R\$ ${double.parse(itens.totalitem.replaceAll(',', '.')).toStringAsFixed(2).replaceAll('.', ',')}')
         ],
       ),
     );
