@@ -2,6 +2,7 @@ import 'package:appcomanda/model/comandas.dart';
 import 'package:appcomanda/model/grupos.dart';
 import 'package:appcomanda/model/itenscomanda.dart';
 import 'package:appcomanda/model/produtos.dart';
+import 'package:appcomanda/model/pedido.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
@@ -93,11 +94,25 @@ class Requests {
     return listaProduto;
   }
 
-  static Future getPedido(String pedido) async {
+  static Future<List<Pedido>> getPedido(String cdpedido) async {
     final storage = new FlutterSecureStorage();
-    var url =
-        '${await storage.read(key: 'URLAPI')}/eventos/pedido?cdpedido=$pedido';
-    return await http.get(url);
+    List<Pedido> listaPedido = [];
+    var json = [];
+    Dio dio = new Dio();
+    try {
+      Response response = await dio.get(
+          '${await storage.read(key: 'URLAPI')}/eventos/pedido?cdpedido=$cdpedido');
+      json = response.data;
+    } catch (e) {
+      print(e);
+    }
+    if (json != []) {
+      json.forEach(((pedidos) {
+        Pedido pedido = Pedido.fromJson(pedidos);
+        listaPedido.add(pedido);
+      }));
+    }
+    return listaPedido;
   }
 
   static Future getListaGarcon() async {
@@ -106,9 +121,10 @@ class Requests {
     var json = [];
     Dio dio = new Dio();
     try {
-      Response response = await dio.get('${await storage.read(key: 'URLAPI')}/eventos/listagarcon');
+      Response response = await dio
+          .get('${await storage.read(key: 'URLAPI')}/eventos/listagarcon');
       json = response.data;
-    } catch(e) {
+    } catch (e) {
       print(e);
     }
     json.forEach((garcons) {
