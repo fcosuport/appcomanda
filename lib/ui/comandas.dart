@@ -90,7 +90,11 @@ class _ComandasTelaState extends State<ComandasTela> {
                       arguments: ItensComandaArguments(comanda.numpedido,
                           comanda.descricao, comanda.numero))));
         } else {
-          Navigator.pushNamed(context, '/grupos');
+          if (comanda.pedirgarcon == 'T') {
+            Navigator.pushNamed(context, '/garcons');
+          } else {
+            Navigator.pushNamed(context, '/grupos');
+          }
         }
       },
     );

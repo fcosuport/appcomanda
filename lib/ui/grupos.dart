@@ -65,9 +65,11 @@ class _GruposTelaState extends State<GruposTela> {
         ),
       ),
       trailing: Icon(Icons.arrow_forward_ios),
-      leading: Icon(Icons.fastfood, color: Colors.blue),
+      leading: CircleAvatar(
+        backgroundColor: Colors.blue,
+        child: Icon(Icons.fastfood, color: Colors.white),
+      ),
       onTap: () {
-        print(grupo.cdgrupo);
         Navigator.push(
             context,
             MaterialPageRoute(

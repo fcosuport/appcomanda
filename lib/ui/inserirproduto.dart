@@ -17,7 +17,7 @@ class _InserirProdutoTelaState extends State<InserirProdutoTela> {
     setState(() {
       _controle = args.controle;
       _descricao = args.descricao;
-    })
+    });
 
     return Scaffold(
       appBar: AppBar(

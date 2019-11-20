@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import '../model/garcon.dart';
 import '../request/requests.dart';
@@ -13,10 +14,63 @@ class _GarconTelaState extends State<GarconTela> {
     List<ListaGarcon> garcons = await Requests.getListaGarcon();
     return garcons;
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
+      appBar: AppBar(
+        title: Text('Lista de Garçons'),
+        centerTitle: true,
+      ),
+      body: _listaGarcons(),
+    );
+  }
+
+  Widget _listaGarcons() {
+    return FutureBuilder<List<ListaGarcon>>(
+      future: _getGarcons(),
+      builder: (context, snapshot) {
+        switch (snapshot.connectionState) {
+          case ConnectionState.active:
+          case ConnectionState.none:
+          case ConnectionState.waiting:
+            return Container(
+              child: Center(
+                child: SpinKitWave(color: Colors.blue),
+              ),
+            );
+          case ConnectionState.done:
+            List<ListaGarcon> garcons = snapshot.data;
+            return ListView.builder(
+              shrinkWrap: true,
+              itemCount: garcons.length,
+              itemBuilder: (context, index) {
+                return _garconTile(garcons[index]);
+              },
+            );
+            break;
+        }
+      },
+    );
+  }
+
+  Widget _garconTile(ListaGarcon garcon) {
+    return ListTile(
+      title: Text(
+        garcon.nome,
+        style: TextStyle(
+          fontSize: 18.0,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+      trailing: Icon(Icons.arrow_forward_ios),
+      leading: CircleAvatar(
+        backgroundColor: Colors.blue,
+        child: Icon(Icons.person, color: Colors.white),
+      ),
+      onTap: () {
+        Navigator.pushNamed(context, '/grupos');
+      },
     );
   }
 }
