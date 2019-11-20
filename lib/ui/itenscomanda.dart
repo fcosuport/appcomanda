@@ -1,5 +1,6 @@
 import 'package:appcomanda/model/itenscomanda.dart';
 import 'package:appcomanda/request/requests.dart';
+import 'package:appcomanda/ui/grupos.dart';
 import 'package:appcomanda/utils/arguments.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -13,6 +14,7 @@ class _ItensComandaTelaState extends State<ItensComandaTela> {
   String _numpedido;
   String _numero;
   String _descricao;
+  String _codigomesa;
 
   Future<List<ItensComanda>> _getItensComanda() async {
     List<ItensComanda> itens = await Requests.getItensComanda(_numpedido);
@@ -28,6 +30,7 @@ class _ItensComandaTelaState extends State<ItensComandaTela> {
       _numpedido = args.numpedido;
       _numero = args.numero;
       _descricao = args.descricao;
+      _codigomesa = args.codigomesa;
     });
 
     return Scaffold(
@@ -56,7 +59,14 @@ class _ItensComandaTelaState extends State<ItensComandaTela> {
         ),
         backgroundColor: Colors.white,
         floatingActionButton: FloatingActionButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => GruposTela(),
+                      settings: RouteSettings(
+                          arguments: GruposArguments(_codigomesa))));
+            },
             child: Icon(Icons.add, color: Colors.white),
             backgroundColor: Colors.amber),
         body: _itensComanda());

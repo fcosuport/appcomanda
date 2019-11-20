@@ -1,5 +1,6 @@
 import 'package:appcomanda/model/comandas.dart';
 import 'package:appcomanda/request/requests.dart';
+import 'package:appcomanda/ui/grupos.dart';
 import 'package:appcomanda/ui/itenscomanda.dart';
 import 'package:appcomanda/utils/arguments.dart';
 import 'package:flutter/material.dart';
@@ -88,9 +89,15 @@ class _ComandasTelaState extends State<ComandasTela> {
                   builder: (context) => ItensComandaTela(),
                   settings: RouteSettings(
                       arguments: ItensComandaArguments(comanda.numpedido,
-                          comanda.descricao, comanda.numero))));
+                          comanda.descricao, comanda.numero, comanda.codigo))));
         } else {
-          Navigator.pushNamed(context, '/grupos');
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => GruposTela(),
+                  settings: RouteSettings(
+                      arguments: GruposArguments(comanda.codigo))));
+          //Navigator.pushNamed(context, '/grupos');
         }
       },
     );
