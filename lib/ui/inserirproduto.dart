@@ -82,7 +82,7 @@ class _InserirProdutoTelaState extends State<InserirProdutoTela> {
         padding: EdgeInsets.symmetric(vertical: 15.0),
         child: Column(
           children: <Widget>[
-            Text('Deseja imprimir?',
+            Text('Deseja imprimir na Cozinha?',
                 style: TextStyle(fontWeight: FontWeight.bold)),
             XlivSwitch(
               value: _imprimir,
