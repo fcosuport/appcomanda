@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 class ListaComandas {
   String codigo;
   String descricao;
@@ -54,8 +52,4 @@ class ListaComandas {
         'CLIENTE': cliente
       };
 
-  factory ListaComandas.fromJson(String value) =>
-      ListaComandas.fromMap(json.decode(value));
-
-  String toJson() => json.encode(toMap());
 }

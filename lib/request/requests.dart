@@ -1,4 +1,5 @@
 import 'package:appcomanda/model/comandas.dart';
+import 'package:appcomanda/model/itenscomanda.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
@@ -42,10 +43,22 @@ class Requests {
 
   static Future getItensComanda(String pedido) async {
     final storage = new FlutterSecureStorage();
-    var url =
-        '${await storage.read(key: 'URLAPI')}/eventos/itenscomanda?cdpedido=$pedido';
-    print(url);
-    return await http.get(url);
+    List<ItensComanda> itensComanda = [];
+    var json = [];
+    Dio dio = new Dio();
+    try {
+      Response response = await dio.get('${await storage.read(key: 'URLAPI')}/eventos/itenscomanda?cdpedido=$pedido');
+      json = response.data;
+    } catch(e) {
+      print(e);
+    }
+    if (json != []) {
+      json.forEach((item) {
+        ItensComanda itens = ItensComanda.fromMap(item);
+        itensComanda.add(itens);
+      });
+    }
+    return itensComanda;
   }
 
   static Future getPedido(String pedido) async {

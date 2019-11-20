@@ -22,7 +22,7 @@ class ItensComanda {
       this.totalitem,
       this.itensobs});
 
-  ItensComanda.fromJson(Map<String, dynamic> json) {
+  ItensComanda.fromMap(Map<String, dynamic> json) {
     cdpedido = json['cdpedido'];
     ordem = json['ordem'];
     controle = json['controle'];
@@ -34,4 +34,17 @@ class ItensComanda {
     totalitem = json['totalitem'];
     itensobs = json['itensobs'];
   }
+
+  Map<String, dynamic> toMap() => {
+    'cdpedido': cdpedido,
+    'ordem': ordem,
+    'controle': controle,
+    'descricao': descricao,
+    'unid': unid,
+    'qtde': qtde,
+    'unitario': unitario,
+    'vldesconto': vldesconto,
+    'totalitem': totalitem,
+    'itensobs': itensobs
+  };
 }

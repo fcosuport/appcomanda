@@ -50,9 +50,7 @@ class _ProdutosTelaState extends State<ProdutosTela> {
                 ),
               ),
               subtitle: Text(
-                listaprodutos[index].prvenda,
-                //_numberformat.format(listaprodutos[index].prvenda),
-                //'R\$${double.parse(listaprodutos[index].prvenda).toStringAsFixed(2).replaceAll('.', ',')}',
+                'R\$${double.parse(listaprodutos[index].prvenda.replaceAll(',', '.')).toStringAsFixed(2).replaceAll('.', ',')}',
                 style: TextStyle(
                   fontSize: 18,
                   color: Colors.green,
