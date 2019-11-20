@@ -8,4 +8,7 @@ class ListaGarcon {
     cdprofissional = json['cdprofissional'];
     nome = json['nome'];
   }
+
+  Map<String, dynamic> toMap() =>
+      {'cdprofissional': cdprofissional, 'nome': nome};
 }
