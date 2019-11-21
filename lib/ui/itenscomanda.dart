@@ -17,6 +17,15 @@ class _ItensComandaTelaState extends State<ItensComandaTela> {
   String _codigocomanda;
   String _cdgarcon;
 
+  //VAMOS SUBSTITUIR OS ARGUMENTOS PELOS CAMPOS QUE VAO VIM NO GETPEDIDO
+  //_numpedido vai vim da resposta do post (numero do pedido) quando inserir o produto chamar essa tela aqui
+  // quando essa tela aqui for chamada do comandas (quando tiver ocupada) esse (numero do pedido) vai vim de comandas
+  //com isso vamos ter somente 1 argumento no itenscomanda que é _numpedido
+
+  //_numero e descricao vao vim do getpedido em um campo so 'OBS'
+  //_codigomesa tambem vai vim do getpedido campo 'MESACOMANDA'
+  //_cdgarcon tambem vai vim do getpedido campo 'CDPROFISSIONAL'
+
   Future<List<ItensComanda>> _getItensComanda() async {
     List<ItensComanda> itens = await Requests.getItensComanda(_numpedido);
     return itens;
