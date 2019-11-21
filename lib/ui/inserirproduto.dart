@@ -113,7 +113,7 @@ class _InserirProdutoTelaState extends State<InserirProdutoTela> {
             onPressed: () {},
             child: Text(
               'Confirmar',
-              style: TextStyle(color: Colors.white, fontSize: 16.0),
+              style: TextStyle(color: Colors.white, fontSize: 18.0),
             ),
             color: Colors.blue,
             shape: RoundedRectangleBorder(

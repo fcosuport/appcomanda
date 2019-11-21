@@ -79,7 +79,7 @@ class _ProdutosTelaState extends State<ProdutosTela> {
         ),
       ),
       subtitle: Text(
-        'R\$${double.parse(produto.prvenda.replaceAll(',', '.')).toStringAsFixed(2).replaceAll('.', ',')}',
+        'R\$ ${double.parse(produto.prvenda.replaceAll(',', '.')).toStringAsFixed(2).replaceAll('.', ',')}',
         style: TextStyle(
           fontSize: 18,
           color: Colors.green,

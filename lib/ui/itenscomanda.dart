@@ -106,18 +106,25 @@ class _ItensComandaTelaState extends State<ItensComandaTela> {
   Widget _itensTile(ItensComanda itens) {
     return ListTile(
       onTap: () {},
-      title:
-          Text(itens.descricao, style: TextStyle(fontWeight: FontWeight.bold)),
+      title: Text(itens.descricao,
+          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
       subtitle: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          Text('Qtde: ${itens.qtde}'),
+          Text(
+            'Qtde: ${itens.qtde}',
+            style: TextStyle(fontSize: 18),
+          ),
           Text(itens.unid),
           Text(
-              'R\$ ${double.parse(itens.unitario.replaceAll(',', '.')).toStringAsFixed(2).replaceAll('.', ',')}'),
+            'R\$ ${double.parse(itens.unitario.replaceAll(',', '.')).toStringAsFixed(2).replaceAll('.', ',')}',
+            style: TextStyle(fontSize: 18),
+          ),
           Text(
-              'R\$ ${double.parse(itens.totalitem.replaceAll(',', '.')).toStringAsFixed(2).replaceAll('.', ',')}')
+            'R\$ ${double.parse(itens.totalitem.replaceAll(',', '.')).toStringAsFixed(2).replaceAll('.', ',')}',
+            style: TextStyle(fontSize: 18),
+          )
         ],
       ),
     );
