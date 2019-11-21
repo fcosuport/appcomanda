@@ -4,8 +4,9 @@ class Pedido {
   String totalped;
   String acrescimo;
   String cdprofissional;
-  String obs;
+  String mesacomanda;
   String vendedor;
+  String obs;
 
   Pedido(
       {this.cdpedido,
@@ -13,8 +14,9 @@ class Pedido {
       this.totalped,
       this.acrescimo,
       this.cdprofissional,
-      this.obs,
-      this.vendedor});
+      this.mesacomanda,
+      this.vendedor,
+      this.obs});
 
   Pedido.fromJson(Map<String, dynamic> json) {
     cdpedido = json['cdpedido'];
@@ -22,8 +24,9 @@ class Pedido {
     totalped = json['totalped'];
     acrescimo = json['acrescimo'];
     cdprofissional = json['cdprofissional'];
-    obs = json['obs'];
+    mesacomanda = json['mesacomanda'];
     vendedor = json['vendedor'];
+    obs = json['obs'];
   }
 
   Map<String, dynamic> toJson() {
@@ -33,8 +36,9 @@ class Pedido {
     data['totalped'] = this.totalped;
     data['acrescimo'] = this.acrescimo;
     data['cdprofissional'] = this.cdprofissional;
-    data['obs'] = this.obs;
+    data['mesacomanda'] = this.mesacomanda;
     data['vendedor'] = this.vendedor;
+    data['obs'] = this.obs;
     return data;
   }
 }
