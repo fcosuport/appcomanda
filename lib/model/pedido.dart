@@ -25,4 +25,16 @@ class Pedido {
     obs = json['obs'];
     vendedor = json['vendedor'];
   }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['cdpedido'] = this.cdpedido;
+    data['totalprod'] = this.totalprod;
+    data['totalped'] = this.totalped;
+    data['acrescimo'] = this.acrescimo;
+    data['cdprofissional'] = this.cdprofissional;
+    data['obs'] = this.obs;
+    data['vendedor'] = this.vendedor;
+    return data;
+  }
 }
