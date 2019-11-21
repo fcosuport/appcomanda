@@ -23,14 +23,12 @@ class InserirProduto {
     imprimiritemcozinha = json['imprimiritemcozinha'];
   }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['codigomesa'] = this.codigomesa;
-    data['cdproduto'] = this.cdproduto;
-    data['qtde'] = this.qtde;
-    data['itensobs'] = this.itensobs;
-    data['cdprofissional'] = this.cdprofissional;
-    data['imprimiritemcozinha'] = this.imprimiritemcozinha;
-    return data;
-  }
+  Map<String, dynamic> toMap() => {
+    'codigomesa': this.codigomesa,
+    'cdproduto': this.cdproduto,
+    'qtde': this.qtde,
+    'itensobs': this.itensobs,
+    'cdprofissional': this.cdprofissional,
+    'imprimiritemcozinha': this.imprimiritemcozinha,
+  };
 }

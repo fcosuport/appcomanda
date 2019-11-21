@@ -1,11 +1,11 @@
 import 'package:appcomanda/model/comandas.dart';
 import 'package:appcomanda/model/grupos.dart';
+import 'package:appcomanda/model/inserirproduto.dart';
 import 'package:appcomanda/model/itenscomanda.dart';
 import 'package:appcomanda/model/produtos.dart';
 import 'package:appcomanda/model/pedido.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:http/http.dart' as http;
 
 import '../model/garcon.dart';
 
@@ -115,7 +115,7 @@ class Requests {
     return listaPedido;
   }
 
-  static Future getListaGarcon() async {
+  static Future<List<ListaGarcon>> getListaGarcon() async {
     final storage = new FlutterSecureStorage();
     List<ListaGarcon> listaGarcon = [];
     var json = [];
@@ -132,5 +132,19 @@ class Requests {
       listaGarcon.add(garcon);
     });
     return listaGarcon;
+  }
+
+  static Future postItenPedido(InserirProduto inserirProduto) async {
+    final storage = new FlutterSecureStorage();
+    print(inserirProduto);
+    Dio dio = new Dio();
+    try {
+      Response response = await dio.post(
+          '${await storage.read(key: 'URLAPI')}/eventos/inserirproduto',
+          data: inserirProduto.toMap());
+      return response.data;
+    } catch (e) {
+      print(e);
+    }
   }
 }
