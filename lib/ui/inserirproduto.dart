@@ -1,6 +1,7 @@
 import 'package:appcomanda/model/inserirproduto.dart';
 import 'package:appcomanda/request/requests.dart';
 import 'package:flutter/material.dart';
+import 'package:progress_dialog/progress_dialog.dart';
 import 'package:xlive_switch/xlive_switch.dart';
 import '../utils/arguments.dart';
 
@@ -14,22 +15,35 @@ class _InserirProdutoTelaState extends State<InserirProdutoTela> {
   String _descricao;
   String _codigocomanda;
   String _cdgarcon;
+  bool _imprimir = false;
+
+  TextEditingController _controllerQtde = new TextEditingController();
+  TextEditingController _controllerObs = new TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    bool _imprimir = false;
-
     final InserirItemArguments args = ModalRoute.of(context).settings.arguments;
 
-    TextEditingController _controllerQtde = new TextEditingController();
-    TextEditingController _controllerObs = new TextEditingController();
+    _controle = args.controle;
+    _descricao = args.descricao;
+    _codigocomanda = args.codigocomanda;
+    _cdgarcon = args.cdgarcon;
 
-    setState(() {
-      _controle = args.controle;
-      _descricao = args.descricao;
-      _codigocomanda = args.codigocomanda;
-      _cdgarcon = args.cdgarcon;
-    });
+    final dialog = new ProgressDialog(context,
+        type: ProgressDialogType.Normal, isDismissible: false, showLogs: false);
+    dialog.style(
+        message: 'Adcionando produto na comanda',
+        borderRadius: 10.0,
+        backgroundColor: Colors.white,
+        progressWidget: CircularProgressIndicator(),
+        elevation: 10.0,
+        insetAnimCurve: Curves.easeInOut,
+        progress: 0.0,
+        maxProgress: 100.0,
+        progressTextStyle: TextStyle(
+            color: Colors.black, fontSize: 13.0, fontWeight: FontWeight.w400),
+        messageTextStyle: TextStyle(
+            color: Colors.black, fontSize: 14.0, fontWeight: FontWeight.w600));
 
     void _changeValue(bool value) {
       setState(() {
@@ -122,17 +136,28 @@ class _InserirProdutoTelaState extends State<InserirProdutoTela> {
     }
 
     void _postItemPedido() async {
-      InserirProduto produto = new InserirProduto(
-          qtde: _controllerQtde.text,
-          imprimiritemcozinha: _imprimir ? 'T' : 'F',
-          cdprofissional: _cdgarcon,
-          codigomesa: _codigocomanda,
-          cdproduto: _controle,
-          itensobs: _controllerObs.text);
-      Future<InserirProduto> pedido = await Requests.postItenPedido(produto);
-      pedido.then((value) {
-        print(value);
-      });
+      dialog.show();
+      try {
+        InserirProduto produto = new InserirProduto(
+            qtde: _controllerQtde.text,
+            imprimiritemcozinha: _imprimir ? 'T' : 'F',
+            cdprofissional: _cdgarcon,
+            codigomesa: _codigocomanda,
+            cdproduto: _controle,
+            itensobs: _controllerObs.text);
+        Future<InserirProduto> pedido = await Requests.postItenPedido(produto);
+        pedido.then((value) {
+          print(value);
+          if (dialog.isShowing()) {
+            dialog.dismiss();
+          }
+        });
+      } catch (e) {
+        print(e);
+        if (dialog.isShowing()) {
+          dialog.dismiss();
+        }
+      }
     }
 
     Widget _confirmar() {
@@ -159,13 +184,12 @@ class _InserirProdutoTelaState extends State<InserirProdutoTela> {
           title: Text('Adicionando Produto'),
           centerTitle: true,
         ),
-        body: Container(
-          height: 380.0,
-          child: Padding(
-            padding:
-                const EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
-            child: Card(
-              elevation: 5.0,
+        body: SingleChildScrollView(
+          child: Container(
+            height: 380.0,
+            child: Padding(
+              padding:
+                  const EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
