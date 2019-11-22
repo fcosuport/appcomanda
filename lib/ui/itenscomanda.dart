@@ -1,4 +1,5 @@
 import 'package:appcomanda/model/itenscomanda.dart';
+import 'package:appcomanda/model/pedido.dart';
 import 'package:appcomanda/request/requests.dart';
 import 'package:appcomanda/ui/grupos.dart';
 import 'package:appcomanda/utils/arguments.dart';
@@ -11,10 +12,10 @@ class ItensComandaTela extends StatefulWidget {
 }
 
 class _ItensComandaTelaState extends State<ItensComandaTela> {
-  String _numpedido;
-  String _numero;
-  String _descricao;
-  String _codigocomanda;
+  int _numpedido;
+  double _totalPedido = 0.00;
+  String _descricao = 'Carregando ...';
+  String _codigoMesa;
   String _cdgarcon;
 
   //VAMOS SUBSTITUIR OS ARGUMENTOS PELOS CAMPOS QUE VAO VIM NO GETPEDIDO
@@ -31,18 +32,28 @@ class _ItensComandaTelaState extends State<ItensComandaTela> {
     return itens;
   }
 
+  Future<Pedido> _getPedido() async {
+    Pedido pedido = await Requests.getPedido(_numpedido);
+    return pedido;
+  }
+
+  _getDadosComanda() async {
+    Pedido pedido = await _getPedido();
+    setState(() {
+      _descricao = pedido.obs;
+      _codigoMesa = pedido.mesacomanda;
+      _cdgarcon = pedido.cdprofissional;
+      _totalPedido = double.parse(pedido.totalped.replaceAll(',', '.'));
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final ItensComandaArguments args =
         ModalRoute.of(context).settings.arguments;
-
-    setState(() {
-      _numpedido = args.numpedido;
-      _numero = args.numero;
-      _descricao = args.descricao;
-      _codigocomanda = args.codigocomanda;
-      _cdgarcon = args.cdgarcon;
-    });
+    _numpedido = args.numpedido;
+    //TODO: RESOLVER BUG DE FICARNO LOOP DE CARREGANDO
+    _getDadosComanda();
 
     return Scaffold(
         bottomSheet: Container(
@@ -51,7 +62,8 @@ class _ItensComandaTelaState extends State<ItensComandaTela> {
           color: Colors.blue,
           child: Padding(
             padding: const EdgeInsets.only(left: 15.0, top: 10.0),
-            child: Text('Total: R\$ 0,00',
+            child: Text(
+                'Total: R\$ ${_totalPedido.toStringAsFixed(2).replaceAll('.', ',')}',
                 style: TextStyle(
                     color: Colors.white,
                     fontSize: 20.0,
@@ -59,7 +71,7 @@ class _ItensComandaTelaState extends State<ItensComandaTela> {
           ),
         ),
         appBar: AppBar(
-          title: Text('$_descricao $_numero'),
+          title: Text(_descricao),
           centerTitle: true,
           actions: <Widget>[
             IconButton(
@@ -76,8 +88,7 @@ class _ItensComandaTelaState extends State<ItensComandaTela> {
                   MaterialPageRoute(
                       builder: (context) => GruposTela(),
                       settings: RouteSettings(
-                          arguments:
-                              GruposArguments(_codigocomanda, _cdgarcon))));
+                          arguments: GruposArguments(_codigoMesa, _cdgarcon))));
             },
             child: Icon(Icons.add, color: Colors.white),
             backgroundColor: Colors.amber),

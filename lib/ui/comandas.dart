@@ -90,11 +90,7 @@ class _ComandasTelaState extends State<ComandasTela> {
                   builder: (context) => ItensComandaTela(),
                   settings: RouteSettings(
                       arguments: ItensComandaArguments(
-                          comanda.numpedido,
-                          comanda.descricao,
-                          comanda.numero,
-                          comanda.codigo,
-                          comanda.garcon))));
+                          int.parse(comanda.numpedido)))));
         } else {
           if (comanda.pedirgarcon == 'T') {
             Navigator.push(

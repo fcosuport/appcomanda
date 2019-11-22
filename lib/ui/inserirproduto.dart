@@ -1,5 +1,6 @@
 import 'package:appcomanda/model/inserirproduto.dart';
 import 'package:appcomanda/request/requests.dart';
+import 'package:appcomanda/ui/itenscomanda.dart';
 import 'package:flutter/material.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 import 'package:xlive_switch/xlive_switch.dart';
@@ -23,7 +24,6 @@ class _InserirProdutoTelaState extends State<InserirProdutoTela> {
   @override
   Widget build(BuildContext context) {
     final InserirItemArguments args = ModalRoute.of(context).settings.arguments;
-
     _controle = args.controle;
     _descricao = args.descricao;
     _codigocomanda = args.codigocomanda;
@@ -137,27 +137,25 @@ class _InserirProdutoTelaState extends State<InserirProdutoTela> {
 
     void _postItemPedido() async {
       dialog.show();
-      try {
-        InserirProduto produto = new InserirProduto(
-            qtde: _controllerQtde.text,
-            imprimiritemcozinha: _imprimir ? 'T' : 'F',
-            cdprofissional: _cdgarcon,
-            codigomesa: _codigocomanda,
-            cdproduto: _controle,
-            itensobs: _controllerObs.text);
-        Future<InserirProduto> pedido = await Requests.postItenPedido(produto);
-        pedido.then((value) {
-          print(value);
-          if (dialog.isShowing()) {
-            dialog.dismiss();
-          }
-        });
-      } catch (e) {
-        print(e);
-        if (dialog.isShowing()) {
-          dialog.dismiss();
-        }
+      InserirProduto produto = new InserirProduto(
+          qtde: _controllerQtde.text,
+          imprimiritemcozinha: _imprimir ? 'T' : 'F',
+          cdprofissional: _cdgarcon,
+          codigomesa: _codigocomanda,
+          cdproduto: _controle,
+          itensobs: _controllerObs.text);
+      print(produto.toMap());
+      int pedido = await Requests.postItenPedido(produto);
+      if (dialog.isShowing()) {
+        dialog.dismiss();
       }
+      Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => ItensComandaTela(),
+                  settings: RouteSettings(
+                      arguments: ItensComandaArguments(
+                          pedido))));
     }
 
     Widget _confirmar() {

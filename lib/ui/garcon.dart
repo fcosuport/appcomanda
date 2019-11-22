@@ -22,10 +22,7 @@ class _GarconTelaState extends State<GarconTela> {
   @override
   Widget build(BuildContext context) {
     final GarconsArguments args = ModalRoute.of(context).settings.arguments;
-
-    setState(() {
-      _codigocomanda = args.codigocomanda;
-    });
+    _codigocomanda = args.codigocomanda;
 
     return Scaffold(
       appBar: AppBar(

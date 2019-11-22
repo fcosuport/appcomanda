@@ -23,10 +23,8 @@ class _GruposTelaState extends State<GruposTela> {
   Widget build(BuildContext context) {
     final GruposArguments args = ModalRoute.of(context).settings.arguments;
 
-    setState(() {
-      _codigocomanda = args.codigocomanda;
-      _cdgarcon = args.cdgarcon;
-    });
+    _codigocomanda = args.codigocomanda;
+    _cdgarcon = args.cdgarcon;
 
     return Scaffold(
       appBar: AppBar(
