@@ -47,7 +47,7 @@ class _ComandasTelaState extends State<ComandasTela> {
           case ConnectionState.waiting:
             return Container(
               child: Center(
-                child: SpinKitHourGlass(color: Colors.blue),
+                child: SpinKitWave(color: Colors.blue),
               ),
             );
           case ConnectionState.done:
