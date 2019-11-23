@@ -47,7 +47,7 @@ class _ComandasTelaState extends State<ComandasTela> {
           case ConnectionState.waiting:
             return Container(
               child: Center(
-                child: SpinKitHourGlass(color: Colors.blue),
+                child: SpinKitWave(color: Colors.blue),
               ),
             );
           case ConnectionState.done:
@@ -90,11 +90,7 @@ class _ComandasTelaState extends State<ComandasTela> {
                   builder: (context) => ItensComandaTela(),
                   settings: RouteSettings(
                       arguments: ItensComandaArguments(
-                          comanda.numpedido,
-                          comanda.descricao,
-                          comanda.numero,
-                          comanda.codigo,
-                          comanda.garcon))));
+                          int.parse(comanda.numpedido), comanda.descricao, comanda.numero, comanda.garcon))));
         } else {
           if (comanda.pedirgarcon == 'T') {
             Navigator.push(

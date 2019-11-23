@@ -16,14 +16,12 @@ class ProdutosArguments {
 }
 
 class ItensComandaArguments {
-  final String numpedido;
+  final int numpedido;
   final String descricao;
   final String numero;
-  final String codigocomanda;
-  final String cdgarcon;
+  final String garcon;
 
-  ItensComandaArguments(this.numpedido, this.descricao, this.numero,
-      this.codigocomanda, this.cdgarcon);
+  ItensComandaArguments(this.numpedido, this.descricao, this.numero, this.garcon);
 }
 
 class InserirItemArguments {

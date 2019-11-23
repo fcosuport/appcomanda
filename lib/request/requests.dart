@@ -5,7 +5,9 @@ import 'package:appcomanda/model/itenscomanda.dart';
 import 'package:appcomanda/model/produtos.dart';
 import 'package:appcomanda/model/pedido.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import '../model/garcon.dart';
 
@@ -20,7 +22,14 @@ class Requests {
           .get('${await storage.read(key: 'URLAPI')}/eventos/listacomandas');
       json = response.data;
     } catch (e) {
-      print(e);
+      Fluttertoast.showToast(
+          msg: e,
+          toastLength: Toast.LENGTH_LONG,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIos: 2,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0);
     }
     if (json != []) {
       json.forEach((comanda) {
@@ -31,7 +40,7 @@ class Requests {
     return comandas;
   }
 
-  static Future<List<ItensComanda>> getItensComanda(String pedido) async {
+  static Future<List<ItensComanda>> getItensComanda(int pedido) async {
     final storage = new FlutterSecureStorage();
     List<ItensComanda> itensComanda = [];
     var json = [];
@@ -41,7 +50,14 @@ class Requests {
           '${await storage.read(key: 'URLAPI')}/eventos/itenscomanda?cdpedido=$pedido');
       json = response.data;
     } catch (e) {
-      print(e);
+      Fluttertoast.showToast(
+          msg: e,
+          toastLength: Toast.LENGTH_LONG,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIos: 2,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0);
     }
     if (json != []) {
       json.forEach((item) {
@@ -62,7 +78,14 @@ class Requests {
           .get('${await storage.read(key: 'URLAPI')}/eventos/listagrupos');
       json = response.data;
     } catch (e) {
-      print(e);
+      Fluttertoast.showToast(
+          msg: e,
+          toastLength: Toast.LENGTH_LONG,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIos: 2,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0);
     }
     if (json != []) {
       json.forEach(((grupos) {
@@ -83,7 +106,14 @@ class Requests {
           '${await storage.read(key: 'URLAPI')}/eventos/listaprodutos?cdgrupo=$cdgrupo');
       json = response.data;
     } catch (e) {
-      print(e);
+      Fluttertoast.showToast(
+          msg: e,
+          toastLength: Toast.LENGTH_LONG,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIos: 2,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0);
     }
     if (json != []) {
       json.forEach(((produtos) {
@@ -94,23 +124,29 @@ class Requests {
     return listaProduto;
   }
 
-  static Future<List<Pedido>> getPedido(String cdpedido) async {
+  static Future<Pedido> getPedido(int cdpedido) async {
     final storage = new FlutterSecureStorage();
-    List<Pedido> listaPedido = [];
+    Pedido listaPedido;
     var json = [];
     Dio dio = new Dio();
     try {
       Response response = await dio.get(
           '${await storage.read(key: 'URLAPI')}/eventos/pedido?cdpedido=$cdpedido');
       json = response.data;
+      print(json);
     } catch (e) {
-      print(e);
+      Fluttertoast.showToast(
+          msg: e.toString(),
+          toastLength: Toast.LENGTH_LONG,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIos: 2,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0);
     }
     if (json != []) {
-      json.forEach(((pedidos) {
-        Pedido pedido = Pedido.fromJson(pedidos);
-        listaPedido.add(pedido);
-      }));
+      Pedido pedido = Pedido.fromJson(json[0]);
+      listaPedido = pedido;
     }
     return listaPedido;
   }
@@ -125,7 +161,14 @@ class Requests {
           .get('${await storage.read(key: 'URLAPI')}/eventos/listagarcon');
       json = response.data;
     } catch (e) {
-      print(e);
+      Fluttertoast.showToast(
+          msg: e,
+          toastLength: Toast.LENGTH_LONG,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIos: 2,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0);
     }
     json.forEach((garcons) {
       ListaGarcon garcon = ListaGarcon.fromJson(garcons);
@@ -134,9 +177,9 @@ class Requests {
     return listaGarcon;
   }
 
-  static Future postItenPedido(InserirProduto inserirProduto) async {
+  static Future<int> postItenPedido(InserirProduto inserirProduto) async {
     final storage = new FlutterSecureStorage();
-    print(inserirProduto);
+
     Dio dio = new Dio();
     try {
       Response response = await dio.post(
@@ -144,7 +187,14 @@ class Requests {
           data: inserirProduto.toMap());
       return response.data;
     } catch (e) {
-      print(e);
+      Fluttertoast.showToast(
+          msg: e,
+          toastLength: Toast.LENGTH_LONG,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIos: 2,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0);
     }
   }
 }

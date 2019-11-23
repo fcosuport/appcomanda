@@ -22,16 +22,17 @@ class _ProdutosTelaState extends State<ProdutosTela> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  void initState() {
     final ProdutosArguments args = ModalRoute.of(context).settings.arguments;
+    _cdgrupo = args.cdgrupo;
+    _descricao = args.descricao;
+    _codigocomanda = args.codigocomanda;
+    _cdgarcon = args.cdgarcon;
+    super.initState();
+  }
 
-    setState(() {
-      _cdgrupo = args.cdgrupo;
-      _descricao = args.descricao;
-      _codigocomanda = args.codigocomanda;
-      _cdgarcon = args.cdgarcon;
-    });
-
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(_descricao),
