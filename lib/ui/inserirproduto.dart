@@ -155,7 +155,7 @@ class _InserirProdutoTelaState extends State<InserirProdutoTela> {
                   builder: (context) => ItensComandaTela(),
                   settings: RouteSettings(
                       arguments: ItensComandaArguments(
-                          pedido))));
+                          pedido, _descricao, _controle, _cdgarcon))));
     }
 
     Widget _confirmar() {

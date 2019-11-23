@@ -13,19 +13,9 @@ class ItensComandaTela extends StatefulWidget {
 
 class _ItensComandaTelaState extends State<ItensComandaTela> {
   int _numpedido;
-  double _totalPedido = 0.00;
-  String _descricao = 'Carregando ...';
+  String _descricao;
   String _codigoMesa;
   String _cdgarcon;
-
-  //VAMOS SUBSTITUIR OS ARGUMENTOS PELOS CAMPOS QUE VAO VIM NO GETPEDIDO
-  //_numpedido vai vim da resposta do post (numero do pedido) quando inserir o produto chamar essa tela aqui
-  // quando essa tela aqui for chamada do comandas (quando tiver ocupada) esse (numero do pedido) vai vim de comandas
-  //com isso vamos ter somente 1 argumento no itenscomanda que é _numpedido
-
-  //_numero e descricao vao vim do getpedido em um campo so 'OBS'
-  //_codigomesa tambem vai vim do getpedido campo 'MESACOMANDA'
-  //_cdgarcon tambem vai vim do getpedido campo 'CDPROFISSIONAL'
 
   Future<List<ItensComanda>> _getItensComanda() async {
     List<ItensComanda> itens = await Requests.getItensComanda(_numpedido);
@@ -37,23 +27,14 @@ class _ItensComandaTelaState extends State<ItensComandaTela> {
     return pedido;
   }
 
-  _getDadosComanda() async {
-    Pedido pedido = await _getPedido();
-    setState(() {
-      _descricao = pedido.obs;
-      _codigoMesa = pedido.mesacomanda;
-      _cdgarcon = pedido.cdprofissional;
-      _totalPedido = double.parse(pedido.totalped.replaceAll(',', '.'));
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     final ItensComandaArguments args =
         ModalRoute.of(context).settings.arguments;
     _numpedido = args.numpedido;
-    //TODO: RESOLVER BUG DE FICARNO LOOP DE CARREGANDO
-    _getDadosComanda();
+    _descricao = args.descricao;
+    _codigoMesa = args.numero;
+    _cdgarcon = args.garcon;
 
     return Scaffold(
         bottomSheet: Container(
@@ -62,16 +43,33 @@ class _ItensComandaTelaState extends State<ItensComandaTela> {
           color: Colors.blue,
           child: Padding(
             padding: const EdgeInsets.only(left: 15.0, top: 10.0),
-            child: Text(
-                'Total: R\$ ${_totalPedido.toStringAsFixed(2).replaceAll('.', ',')}',
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 20.0,
-                    fontWeight: FontWeight.bold)),
+            child: FutureBuilder<Pedido>(
+              future: _getPedido(),
+              builder: (context, snapshot) {
+                switch (snapshot.connectionState) {
+                  case ConnectionState.active:
+                  case ConnectionState.none:
+                  case ConnectionState.waiting:
+                    return Text('Total: R\$ 0,00',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20.0,
+                            fontWeight: FontWeight.bold));
+                  case ConnectionState.done:
+                    return Text(
+                        'Total: R\$ ${double.parse(snapshot.data.totalped.replaceAll(',', '.')).toStringAsFixed(2).replaceAll('.', ',').toString()}',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20.0,
+                            fontWeight: FontWeight.bold));
+                    break;
+                }
+              },
+            ),
           ),
         ),
         appBar: AppBar(
-          title: Text(_descricao),
+          title: Text('$_descricao $_codigoMesa'),
           centerTitle: true,
           actions: <Widget>[
             IconButton(

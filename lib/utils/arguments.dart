@@ -17,8 +17,11 @@ class ProdutosArguments {
 
 class ItensComandaArguments {
   final int numpedido;
+  final String descricao;
+  final String numero;
+  final String garcon;
 
-  ItensComandaArguments(this.numpedido);
+  ItensComandaArguments(this.numpedido, this.descricao, this.numero, this.garcon);
 }
 
 class InserirItemArguments {

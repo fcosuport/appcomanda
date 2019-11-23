@@ -136,7 +136,7 @@ class Requests {
       print(json);
     } catch (e) {
       Fluttertoast.showToast(
-          msg: e,
+          msg: e.toString(),
           toastLength: Toast.LENGTH_LONG,
           gravity: ToastGravity.CENTER,
           timeInSecForIos: 2,
