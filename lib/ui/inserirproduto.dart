@@ -32,7 +32,7 @@ class _InserirProdutoTelaState extends State<InserirProdutoTela> {
     final dialog = new ProgressDialog(context,
         type: ProgressDialogType.Normal, isDismissible: false, showLogs: false);
     dialog.style(
-        message: 'Adcionando produto na comanda',
+        message: 'Adcionando produto',
         borderRadius: 10.0,
         backgroundColor: Colors.white,
         progressWidget: CircularProgressIndicator(),
