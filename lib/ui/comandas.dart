@@ -90,7 +90,11 @@ class _ComandasTelaState extends State<ComandasTela> {
                   builder: (context) => ItensComandaTela(),
                   settings: RouteSettings(
                       arguments: ItensComandaArguments(
-                          int.parse(comanda.numpedido), comanda.descricao, comanda.numero, comanda.garcon))));
+                          int.parse(comanda.numpedido),
+                          comanda.numero,
+                          comanda.descricao,
+                          comanda.garcon,
+                          comanda.codigo))));
         } else {
           if (comanda.pedirgarcon == 'T') {
             Navigator.push(
@@ -98,15 +102,19 @@ class _ComandasTelaState extends State<ComandasTela> {
                 MaterialPageRoute(
                     builder: (context) => GarconTela(),
                     settings: RouteSettings(
-                        arguments: GarconsArguments(comanda.codigo))));
+                        arguments: GarconsArguments(comanda.codigo,
+                            comanda.numero, comanda.descricao))));
           } else {
             Navigator.push(
                 context,
                 MaterialPageRoute(
                     builder: (context) => GruposTela(),
                     settings: RouteSettings(
-                        arguments:
-                            GruposArguments(comanda.codigo, comanda.garcon))));
+                        arguments: GruposArguments(
+                            comanda.codigo,
+                            comanda.garcon,
+                            comanda.numero,
+                            comanda.descricao))));
           }
         }
       },

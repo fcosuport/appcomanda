@@ -12,30 +12,40 @@ class ProdutosTela extends StatefulWidget {
 
 class _ProdutosTelaState extends State<ProdutosTela> {
   String _cdgrupo;
-  String _descricao;
+  String _descricaogrupo;
   String _codigocomanda;
   String _cdgarcon;
+  String _numerocomanda;
+  String _descricaocomanda;
 
   Future<List<ListaProdutos>> _getProdutos() async {
     List<ListaProdutos> produtos = await Requests.getListaProdutos(_cdgrupo);
     return produtos;
   }
 
-  @override
-  void initState() {
-    final ProdutosArguments args = ModalRoute.of(context).settings.arguments;
-    _cdgrupo = args.cdgrupo;
-    _descricao = args.descricao;
-    _codigocomanda = args.codigocomanda;
-    _cdgarcon = args.cdgarcon;
-    super.initState();
-  }
+  // @override
+  // void initState() {
+  //   final ProdutosArguments args = ModalRoute.of(context).settings.arguments;
+  //   _cdgrupo = args.cdgrupo;
+  //   _descricaogrupo = args.descricaogrupo;
+  //   _codigocomanda = args.codigocomanda;
+  //   _cdgarcon = args.cdgarcon;
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) {
+    final ProdutosArguments args = ModalRoute.of(context).settings.arguments;
+    _cdgrupo = args.cdgrupo;
+    _descricaogrupo = args.descricaogrupo;
+    _codigocomanda = args.codigocomanda;
+    _cdgarcon = args.cdgarcon;
+    _numerocomanda = args.numerocomanda;
+    _descricaocomanda = args.descricaocomanda;
+
     return Scaffold(
       appBar: AppBar(
-        title: Text(_descricao),
+        title: Text(_descricaogrupo),
         centerTitle: true,
       ),
       body: _listaProdutos(),
@@ -95,8 +105,13 @@ class _ProdutosTelaState extends State<ProdutosTela> {
             MaterialPageRoute(
                 builder: (context) => InserirProdutoTela(),
                 settings: RouteSettings(
-                    arguments: InserirItemArguments(produto.controle,
-                        produto.descricao, _codigocomanda, _cdgarcon))));
+                    arguments: InserirItemArguments(
+                        produto.controle,
+                        produto.descricao,
+                        _codigocomanda,
+                        _cdgarcon,
+                        _numerocomanda,
+                        _descricaocomanda))));
       },
     );
   }

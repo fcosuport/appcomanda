@@ -12,10 +12,13 @@ class InserirProdutoTela extends StatefulWidget {
 }
 
 class _InserirProdutoTelaState extends State<InserirProdutoTela> {
-  String _controle;
-  String _descricao;
+  String _codigoproduto;
+  String _descricaoproduto;
   String _codigocomanda;
   String _cdgarcon;
+  String _numerocomanda;
+  String _descricaocomanda;
+
   bool _imprimir = false;
 
   TextEditingController _controllerQtde = new TextEditingController();
@@ -24,10 +27,12 @@ class _InserirProdutoTelaState extends State<InserirProdutoTela> {
   @override
   Widget build(BuildContext context) {
     final InserirItemArguments args = ModalRoute.of(context).settings.arguments;
-    _controle = args.controle;
-    _descricao = args.descricao;
+    _codigoproduto = args.codigoproduto;
+    _descricaoproduto = args.descricaoproduto;
     _codigocomanda = args.codigocomanda;
     _cdgarcon = args.cdgarcon;
+    _numerocomanda = args.numerocomanda;
+    _descricaocomanda = args.descricaocomanda;
 
     final dialog = new ProgressDialog(context,
         type: ProgressDialogType.Normal, isDismissible: false, showLogs: false);
@@ -114,7 +119,7 @@ class _InserirProdutoTelaState extends State<InserirProdutoTela> {
       return Padding(
         padding: const EdgeInsets.only(top: 15.0),
         child: Text(
-          _descricao,
+          _descricaoproduto,
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
           textAlign: TextAlign.center,
         ),
@@ -142,7 +147,7 @@ class _InserirProdutoTelaState extends State<InserirProdutoTela> {
           imprimiritemcozinha: _imprimir ? 'T' : 'F',
           cdprofissional: _cdgarcon,
           codigomesa: _codigocomanda,
-          cdproduto: _controle,
+          cdproduto: _codigoproduto,
           itensobs: _controllerObs.text);
       print(produto.toMap());
       int pedido = await Requests.postItenPedido(produto);
@@ -150,12 +155,12 @@ class _InserirProdutoTelaState extends State<InserirProdutoTela> {
         dialog.dismiss();
       }
       Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => ItensComandaTela(),
-                  settings: RouteSettings(
-                      arguments: ItensComandaArguments(
-                          pedido, _descricao, _controle, _cdgarcon))));
+          context,
+          MaterialPageRoute(
+              builder: (context) => ItensComandaTela(),
+              settings: RouteSettings(
+                  arguments: ItensComandaArguments(pedido, _numerocomanda,
+                      _descricaocomanda, _cdgarcon, _codigocomanda))));
     }
 
     Widget _confirmar() {

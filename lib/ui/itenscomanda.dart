@@ -13,9 +13,10 @@ class ItensComandaTela extends StatefulWidget {
 
 class _ItensComandaTelaState extends State<ItensComandaTela> {
   int _numpedido;
-  String _descricao;
-  String _codigoMesa;
+  String _numerocomanda;
+  String _descricaocomanda;
   String _cdgarcon;
+  String _codigocomanda;
 
   Future<List<ItensComanda>> _getItensComanda() async {
     List<ItensComanda> itens = await Requests.getItensComanda(_numpedido);
@@ -32,9 +33,10 @@ class _ItensComandaTelaState extends State<ItensComandaTela> {
     final ItensComandaArguments args =
         ModalRoute.of(context).settings.arguments;
     _numpedido = args.numpedido;
-    _descricao = args.descricao;
-    _codigoMesa = args.numero;
+    _numerocomanda = args.numerocomanda;
+    _descricaocomanda = args.descricaocomanda;
     _cdgarcon = args.garcon;
+    _codigocomanda = args.codigocomanda;
 
     return Scaffold(
         bottomSheet: Container(
@@ -69,7 +71,7 @@ class _ItensComandaTelaState extends State<ItensComandaTela> {
           ),
         ),
         appBar: AppBar(
-          title: Text('$_descricao $_codigoMesa'),
+          title: Text('$_descricaocomanda $_numerocomanda'),
           centerTitle: true,
           actions: <Widget>[
             IconButton(
@@ -86,7 +88,8 @@ class _ItensComandaTelaState extends State<ItensComandaTela> {
                   MaterialPageRoute(
                       builder: (context) => GruposTela(),
                       settings: RouteSettings(
-                          arguments: GruposArguments(_codigoMesa, _cdgarcon))));
+                          arguments: GruposArguments(_codigocomanda, _cdgarcon,
+                              _numerocomanda, _descricaocomanda))));
             },
             child: Icon(Icons.add, color: Colors.white),
             backgroundColor: Colors.amber),
