@@ -23,16 +23,6 @@ class _ProdutosTelaState extends State<ProdutosTela> {
     return produtos;
   }
 
-  // @override
-  // void initState() {
-  //   final ProdutosArguments args = ModalRoute.of(context).settings.arguments;
-  //   _cdgrupo = args.cdgrupo;
-  //   _descricaogrupo = args.descricaogrupo;
-  //   _codigocomanda = args.codigocomanda;
-  //   _cdgarcon = args.cdgarcon;
-  //   super.initState();
-  // }
-
   @override
   Widget build(BuildContext context) {
     final ProdutosArguments args = ModalRoute.of(context).settings.arguments;
