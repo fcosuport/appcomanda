@@ -25,6 +25,12 @@ class _InserirProdutoTelaState extends State<InserirProdutoTela> {
   TextEditingController _controllerObs = new TextEditingController();
 
   @override
+  void initState() {
+    super.initState();
+    _controllerQtde.text = '1.0';
+  }
+
+  @override
   Widget build(BuildContext context) {
     final InserirItemArguments args = ModalRoute.of(context).settings.arguments;
     _codigoproduto = args.codigoproduto;

@@ -41,7 +41,8 @@ class _MyAppState extends State<MyApp> {
       home: FutureBuilder(
         future: _verificaURLAPI(),
         builder: (context, snapshot) {
-          if (snapshot.data != null) {
+          print('DADOS: ${snapshot.data}');
+          if (snapshot.data != null || snapshot.data != '') {
             return ComandasTela();
           } else {
             return Configuracoes();

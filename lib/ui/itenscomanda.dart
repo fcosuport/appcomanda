@@ -3,6 +3,7 @@ import 'package:appcomanda/model/pedido.dart';
 import 'package:appcomanda/request/requests.dart';
 import 'package:appcomanda/ui/grupos.dart';
 import 'package:appcomanda/utils/arguments.dart';
+import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
@@ -71,6 +72,12 @@ class _ItensComandaTelaState extends State<ItensComandaTela> {
           ),
         ),
         appBar: AppBar(
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () {
+              Navigator.popUntil(context, ModalRoute.withName('/comandas'));
+            },
+          ),
           title: Text('$_descricaocomanda $_numerocomanda'),
           centerTitle: true,
           actions: <Widget>[
@@ -111,12 +118,15 @@ class _ItensComandaTelaState extends State<ItensComandaTela> {
             );
           case ConnectionState.done:
             List<ItensComanda> itensComanda = snapshot.data;
-            return ListView.builder(
-              shrinkWrap: true,
-              itemCount: itensComanda.length,
-              itemBuilder: (context, index) {
-                return _itensTile(itensComanda[index]);
-              },
+            return Padding(
+              padding: const EdgeInsets.only(bottom: 50.0),
+              child: ListView.builder(
+                shrinkWrap: true,
+                itemCount: itensComanda.length,
+                itemBuilder: (context, index) {
+                  return _itensTile(itensComanda[index]);
+                },
+              ),
             );
             break;
         }
