@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class Configuracoes extends StatefulWidget {
   @override
@@ -23,9 +24,20 @@ class _ConfiguracoesState extends State<Configuracoes> {
   @override
   Widget build(BuildContext context) {
     _salvarURLAPI() async {
-      final storage = new FlutterSecureStorage();
-      await storage.write(key: 'URLAPI', value: _controller.text);
-      Navigator.popAndPushNamed(context, '/comandas');
+      if (_controller.text.length == 0) {
+        Fluttertoast.showToast(
+            msg: 'Insira o endereço da API',
+            toastLength: Toast.LENGTH_LONG,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIos: 4,
+            backgroundColor: Colors.amber,
+            textColor: Colors.white,
+            fontSize: 16.0);
+      } else {
+        final storage = new FlutterSecureStorage();
+        await storage.write(key: 'URLAPI', value: _controller.text);
+        Navigator.popAndPushNamed(context, '/comandas');
+      }
     }
 
     return Scaffold(
