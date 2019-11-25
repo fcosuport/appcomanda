@@ -7,6 +7,7 @@ import 'package:appcomanda/ui/itenscomanda.dart';
 import 'package:appcomanda/ui/produtos.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 void main() => runApp(MyApp());
 
@@ -41,11 +42,25 @@ class _MyAppState extends State<MyApp> {
       home: FutureBuilder(
         future: _verificaURLAPI(),
         builder: (context, snapshot) {
-          print('DADOS: ${snapshot.data}');
-          if (snapshot.data != null || snapshot.data != '') {
-            return ComandasTela();
-          } else {
-            return Configuracoes();
+          switch (snapshot.connectionState) {
+            case ConnectionState.active:
+            case ConnectionState.none:
+            case ConnectionState.waiting:
+              return Scaffold(
+                body: Container(
+                  child: Center(
+                    child: SpinKitWave(color: Colors.blue),
+                  ),
+                ),
+              );
+            case ConnectionState.done:
+              print(snapshot.data);
+              if (snapshot.data != null && snapshot.data != '') {
+                return ComandasTela();
+              } else {
+                return Configuracoes();
+              }
+              break;
           }
         },
       ),

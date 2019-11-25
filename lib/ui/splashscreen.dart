@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 import 'comandas.dart';
 
@@ -8,6 +9,11 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  Future<String> _verificaURLAPI() async {
+      final storage = new FlutterSecureStorage();
+      return await storage.read(key: 'URLAPI');
+    }
+    
   @override
   void initState() {
     super.initState();
