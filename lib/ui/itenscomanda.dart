@@ -74,8 +74,6 @@ class _ItensComandaTelaState extends State<ItensComandaTela> {
           leading: IconButton(
             icon: Icon(Icons.arrow_back),
             onPressed: () {
-              //Navigator.popUntil(context, ModalRoute.withName('/comandas'));
-              //Navigator.of(context).popUntil(ModalRoute.withName('/comandas'));
               Navigator.of(context).popUntil((route) => route.isFirst);
             },
           ),
