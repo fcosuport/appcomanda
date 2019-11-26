@@ -1,10 +1,12 @@
 import 'package:appcomanda/model/itenscomanda.dart';
 import 'package:appcomanda/model/pedido.dart';
+import 'package:appcomanda/model/imprimirpedido.dart';
 import 'package:appcomanda/request/requests.dart';
 import 'package:appcomanda/ui/grupos.dart';
 import 'package:appcomanda/utils/arguments.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:progress_dialog/progress_dialog.dart';
 
 class ItensComandaTela extends StatefulWidget {
   @override
@@ -37,6 +39,32 @@ class _ItensComandaTelaState extends State<ItensComandaTela> {
     _descricaocomanda = args.descricaocomanda;
     _cdgarcon = args.garcon;
     _codigocomanda = args.codigocomanda;
+
+    final dialog = new ProgressDialog(context,
+        type: ProgressDialogType.Normal, isDismissible: false, showLogs: false);
+    dialog.style(
+        message: 'Enviando Pedido',
+        borderRadius: 10.0,
+        backgroundColor: Colors.white,
+        progressWidget: CircularProgressIndicator(),
+        elevation: 10.0,
+        insetAnimCurve: Curves.easeInOut,
+        progress: 0.0,
+        maxProgress: 100.0,
+        progressTextStyle: TextStyle(
+            color: Colors.black, fontSize: 13.0, fontWeight: FontWeight.w400),
+        messageTextStyle: TextStyle(
+            color: Colors.black, fontSize: 14.0, fontWeight: FontWeight.w600));
+
+    void _postImprimirPedido() async {
+      dialog.show();
+      ImprimirPedido pedido = new ImprimirPedido(numeropedido: '$_numpedido');
+      print(pedido.toMap());
+      await Requests.postImprimirPedido(pedido);
+      if (dialog.isShowing()) {
+        dialog.dismiss();
+      }
+    }
 
     return Scaffold(
         bottomSheet: Container(
@@ -84,7 +112,7 @@ class _ItensComandaTelaState extends State<ItensComandaTela> {
           actions: <Widget>[
             IconButton(
               icon: Icon(Icons.print, color: Colors.white),
-              onPressed: () {},
+              onPressed: () => _postImprimirPedido(),
             ),
           ],
         ),

@@ -1,15 +1,15 @@
 import 'package:appcomanda/model/comandas.dart';
 import 'package:appcomanda/model/grupos.dart';
+import 'package:appcomanda/model/imprimirpedido.dart';
 import 'package:appcomanda/model/inserirproduto.dart';
 import 'package:appcomanda/model/itenscomanda.dart';
 import 'package:appcomanda/model/produtos.dart';
 import 'package:appcomanda/model/pedido.dart';
+import '../model/garcon.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-
-import '../model/garcon.dart';
 
 class Requests {
   static Future<List<ListaComandas>> getListaComandas() async {
@@ -185,6 +185,27 @@ class Requests {
       Response response = await dio.post(
           '${await storage.read(key: 'URLAPI')}/eventos/inserirproduto',
           data: inserirProduto.toMap());
+      return response.data;
+    } catch (e) {
+      Fluttertoast.showToast(
+          msg: e,
+          toastLength: Toast.LENGTH_LONG,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIos: 2,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0);
+    }
+  }
+
+  static Future<int> postImprimirPedido(ImprimirPedido imprimirPedido) async {
+    final storage = new FlutterSecureStorage();
+
+    Dio dio = new Dio();
+    try {
+      Response response = await dio.post(
+          '${await storage.read(key: 'URLAPI')}/eventos/imprimirpedido',
+          data: imprimirPedido.toMap());
       return response.data;
     } catch (e) {
       Fluttertoast.showToast(
