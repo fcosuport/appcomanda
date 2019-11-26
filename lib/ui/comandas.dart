@@ -53,7 +53,8 @@ class _ComandasTelaState extends State<ComandasTela> {
             );
           case ConnectionState.done:
             List<ListaComandas> comanda = snapshot.data;
-            return ListView.builder(
+            return ListView.separated(
+              separatorBuilder: (context, index) => Divider(color: Colors.black),
               shrinkWrap: true,
               itemCount: comanda.length,
               itemBuilder: (context, index) {

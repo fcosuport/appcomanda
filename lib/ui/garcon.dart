@@ -52,7 +52,8 @@ class _GarconTelaState extends State<GarconTela> {
             );
           case ConnectionState.done:
             List<ListaGarcon> garcons = snapshot.data;
-            return ListView.builder(
+            return ListView.separated(
+              separatorBuilder: (context, index) => Divider(color: Colors.black),
               shrinkWrap: true,
               itemCount: garcons.length,
               itemBuilder: (context, index) {

@@ -102,8 +102,6 @@ class _ItensComandaTelaState extends State<ItensComandaTela> {
           leading: IconButton(
             icon: Icon(Icons.arrow_back),
             onPressed: () {
-              //Navigator.popUntil(context, ModalRoute.withName('/comandas'));
-              //Navigator.of(context).popUntil(ModalRoute.withName('/comandas'));
               Navigator.of(context).popUntil((route) => route.isFirst);
             },
           ),
@@ -149,7 +147,9 @@ class _ItensComandaTelaState extends State<ItensComandaTela> {
             List<ItensComanda> itensComanda = snapshot.data;
             return Padding(
               padding: const EdgeInsets.only(bottom: 50.0),
-              child: ListView.builder(
+              child: ListView.separated(
+                separatorBuilder: (context, index) =>
+                    Divider(color: Colors.black),
                 shrinkWrap: true,
                 itemCount: itensComanda.length,
                 itemBuilder: (context, index) {

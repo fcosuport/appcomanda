@@ -57,7 +57,8 @@ class _ProdutosTelaState extends State<ProdutosTela> {
             );
           case ConnectionState.done:
             List<ListaProdutos> produtos = snapshot.data;
-            return ListView.builder(
+            return ListView.separated(
+              separatorBuilder: (context, index) => Divider(color: Colors.black),
               shrinkWrap: true,
               itemCount: produtos.length,
               itemBuilder: (context, index) {

@@ -54,7 +54,8 @@ class _GruposTelaState extends State<GruposTela> {
             );
           case ConnectionState.done:
             List<ListaGrupos> grupos = snapshot.data;
-            return ListView.builder(
+            return ListView.separated(
+              separatorBuilder: (context, index) => Divider(color: Colors.black),
               shrinkWrap: true,
               itemCount: grupos.length,
               itemBuilder: (context, index) {
