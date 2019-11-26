@@ -48,13 +48,14 @@ class _ComandasTelaState extends State<ComandasTela> {
           case ConnectionState.waiting:
             return Container(
               child: Center(
-                child: SpinKitWave(color: Colors.blue),
+                child: SpinKitHourGlass(color: Colors.blue),
               ),
             );
           case ConnectionState.done:
             List<ListaComandas> comanda = snapshot.data;
             return ListView.separated(
-              separatorBuilder: (context, index) => Divider(color: Colors.black),
+              separatorBuilder: (context, index) =>
+                  Divider(color: Colors.black),
               shrinkWrap: true,
               itemCount: comanda.length,
               itemBuilder: (context, index) {
