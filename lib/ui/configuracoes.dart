@@ -57,7 +57,7 @@ class _ConfiguracoesState extends State<Configuracoes> {
               maxLines: 1,
               decoration: InputDecoration(
                   hintText: 'URL da API',
-                  helperText: 'Ex: https://167.114.135.196:8171',
+                  helperText: 'Ex: http://167.114.135.196:8171',
                   border: OutlineInputBorder()),
             ),
             SizedBox(height: 15.0),
