@@ -7,9 +7,7 @@ import 'package:appcomanda/model/produtos.dart';
 import 'package:appcomanda/model/pedido.dart';
 import '../model/garcon.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 class Requests {
   static Future<List<ListaComandas>> getListaComandas() async {
@@ -22,14 +20,7 @@ class Requests {
           .get('${await storage.read(key: 'URLAPI')}/eventos/listacomandas');
       json = response.data;
     } catch (e) {
-      Fluttertoast.showToast(
-          msg: e,
-          toastLength: Toast.LENGTH_LONG,
-          gravity: ToastGravity.CENTER,
-          timeInSecForIos: 2,
-          backgroundColor: Colors.red,
-          textColor: Colors.white,
-          fontSize: 16.0);
+      print(e);
     }
     if (json != []) {
       json.forEach((comanda) {
@@ -50,14 +41,7 @@ class Requests {
           '${await storage.read(key: 'URLAPI')}/eventos/itenscomanda?cdpedido=$pedido');
       json = response.data;
     } catch (e) {
-      Fluttertoast.showToast(
-          msg: e,
-          toastLength: Toast.LENGTH_LONG,
-          gravity: ToastGravity.CENTER,
-          timeInSecForIos: 2,
-          backgroundColor: Colors.red,
-          textColor: Colors.white,
-          fontSize: 16.0);
+      print(e);
     }
     if (json != []) {
       json.forEach((item) {
@@ -78,14 +62,7 @@ class Requests {
           .get('${await storage.read(key: 'URLAPI')}/eventos/listagrupos');
       json = response.data;
     } catch (e) {
-      Fluttertoast.showToast(
-          msg: e,
-          toastLength: Toast.LENGTH_LONG,
-          gravity: ToastGravity.CENTER,
-          timeInSecForIos: 2,
-          backgroundColor: Colors.red,
-          textColor: Colors.white,
-          fontSize: 16.0);
+      print(e);
     }
     if (json != []) {
       json.forEach(((grupos) {
@@ -106,14 +83,7 @@ class Requests {
           '${await storage.read(key: 'URLAPI')}/eventos/listaprodutos?cdgrupo=$cdgrupo');
       json = response.data;
     } catch (e) {
-      Fluttertoast.showToast(
-          msg: e,
-          toastLength: Toast.LENGTH_LONG,
-          gravity: ToastGravity.CENTER,
-          timeInSecForIos: 2,
-          backgroundColor: Colors.red,
-          textColor: Colors.white,
-          fontSize: 16.0);
+      print(e);
     }
     if (json != []) {
       json.forEach(((produtos) {
@@ -135,14 +105,7 @@ class Requests {
       json = response.data;
       print(json);
     } catch (e) {
-      Fluttertoast.showToast(
-          msg: e.toString(),
-          toastLength: Toast.LENGTH_LONG,
-          gravity: ToastGravity.CENTER,
-          timeInSecForIos: 2,
-          backgroundColor: Colors.red,
-          textColor: Colors.white,
-          fontSize: 16.0);
+      print(e);
     }
     if (json != []) {
       Pedido pedido = Pedido.fromJson(json[0]);
@@ -161,14 +124,7 @@ class Requests {
           .get('${await storage.read(key: 'URLAPI')}/eventos/listagarcon');
       json = response.data;
     } catch (e) {
-      Fluttertoast.showToast(
-          msg: e,
-          toastLength: Toast.LENGTH_LONG,
-          gravity: ToastGravity.CENTER,
-          timeInSecForIos: 2,
-          backgroundColor: Colors.red,
-          textColor: Colors.white,
-          fontSize: 16.0);
+      print(e);
     }
     json.forEach((garcons) {
       ListaGarcon garcon = ListaGarcon.fromJson(garcons);
@@ -187,14 +143,7 @@ class Requests {
           data: inserirProduto.toMap());
       return response.data;
     } catch (e) {
-      Fluttertoast.showToast(
-          msg: e,
-          toastLength: Toast.LENGTH_LONG,
-          gravity: ToastGravity.CENTER,
-          timeInSecForIos: 2,
-          backgroundColor: Colors.red,
-          textColor: Colors.white,
-          fontSize: 16.0);
+      print(e);
     }
   }
 
@@ -208,14 +157,7 @@ class Requests {
           data: imprimirPedido.toMap());
       return response.data;
     } catch (e) {
-      Fluttertoast.showToast(
-          msg: e,
-          toastLength: Toast.LENGTH_LONG,
-          gravity: ToastGravity.CENTER,
-          timeInSecForIos: 2,
-          backgroundColor: Colors.red,
-          textColor: Colors.white,
-          fontSize: 16.0);
+      print(e);
     }
   }
 }
